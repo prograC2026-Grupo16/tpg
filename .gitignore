@@ -1,0 +1,13 @@
+# Maven
+target/
+
+# Java
+*.class
+
+# Eclipse
+.classpath
+.proyect
+.settings/
+
+# VS Code (por las dudas)
+.vscode/
