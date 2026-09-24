@@ -8,7 +8,7 @@ public abstract class Mision{
     }
 
     // Supongo que debo tener la referencia a una nave para poder saber si es posible ejecutar la mision
-    public void Ejecuto_Mision(Nave nave){ //
+    public void Ejecuto_Mision(Nave nave){
         preparar(nave);
         if(preparada){
             ejecutar(nave); // Que puedo hacer en ejecutar ???
@@ -20,11 +20,11 @@ public abstract class Mision{
 
     public void preparar(Nave nave) {
         if (nave.getCombustible() >= COSTO_COMBUSTIBLE && (100 - nave.getDesgaste()) >= COSTO_DESGASTE) {
-                nave.bitacora.registrar_preparacion_con_exito(); // Mi idea de implementacion de bitacora
+                nave.bitacora.registrarEvento("Nave preparada para mision"); // Mi idea de implementacion de bitacora
             preparada = true;
         }
         else{
-            nave.bitacora.registrar_preparacion_fallida(); // mensaje: "Preparacion fallida, no hay recursos suficientes"
+            nave.bitacora.registrarEvento("Preparacion fallida, no hay recursos suficientes");
         }
     }
 
@@ -34,14 +34,14 @@ public abstract class Mision{
 
     public void cerrar(Nave nave) {
         if (preparada) {
-            nave.bitacora.registrar_MisionExito();
+            nave.bitacora.registrarEvento("Mision Completada con exito");
         } else {
-            nave.bitacora.registrar_MisionFallo();
+            nave.bitacora.registrarEvento("Mision fallida (No hay recursos disponibles)");
         }
     }
 
     public void evaluar(){
-        //Tampoco se que poenr acá xD
+        //Tampoco se que poner acá
     }
 
     public abstract void EnergiaGanada();
