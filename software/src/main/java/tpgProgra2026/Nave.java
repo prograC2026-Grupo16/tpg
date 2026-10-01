@@ -24,6 +24,10 @@ public abstract class Nave {
         tripulacion.add(t);
     }
     
+    public boolean estaMotorDisponible(){
+        return motorwarp.estaMotorDisponible();
+    }
+    
     
     public void cargarCombustible(int cantidad){
         recursos.setCombustible(cantidad);
