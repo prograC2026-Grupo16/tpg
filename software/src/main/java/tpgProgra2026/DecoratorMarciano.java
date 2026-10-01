@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package tpgProgra2026;
 
 /**
@@ -11,9 +8,9 @@ package tpgProgra2026;
 public class DecoratorMarciano extends Decorator{
         public String origen;
     
-    public DecoratorMarciano( Tripulante tripulante, String origen ){
+    public DecoratorMarciano( Tripulante tripulante ){
         super(tripulante);
-        this.origen =   origen;
+        this.origen =   "Marciano";
     }
     @Override
     public String getCargo(){
