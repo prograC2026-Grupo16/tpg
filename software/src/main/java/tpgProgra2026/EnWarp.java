@@ -9,23 +9,28 @@ public class EnWarp implements EstadoWarp {
 	
 	@Override
 	public void prepararSalto() {
-		// TODO transición invalida
+		System.out.println("Transición Invalida");
 	}
 	@Override
 	public void pasarAWarp() {
-		// TODO transición invalida
+		System.out.println("Transición Invalida");
 	}
 	@Override
 	public void enfriar() {
+		/*
 		EstadoWarp estado = new Enfriamiento();
 		motor.setEstado(estado);
+		*/
+		System.out.println("por esta primera parte de la entrega esta transición es válida");
 	}
 	@Override
 	public void dejarDisponible() {
-		// TODO transición invalida
+		// por esta primera parte de la entrega esta transición es válida
+		EstadoWarp estado = new Disponible();
+		motor.setEstado(estado);
 	}
-	@Override
-	public void abortar() {
-		// TODO añadir implementación abortar()
+	
+	public boolean estaMotorDisponible() {
+		return false;
 	}
 }

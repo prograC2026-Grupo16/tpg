@@ -9,7 +9,7 @@ public class PreparandoSalto implements EstadoWarp {
 	
 	@Override
 	public void prepararSalto() {
-		// TODO transición invalida
+		System.out.println("Transición Invalida");
 	}
 	@Override
 	public void pasarAWarp() {
@@ -18,14 +18,14 @@ public class PreparandoSalto implements EstadoWarp {
 	}
 	@Override
 	public void enfriar() {
-		// TODO transición invalida
+		System.out.println("Transición Invalida");
 	}
 	@Override
 	public void dejarDisponible() {
-		// TODO transición invalida
+		System.out.println("Transición Invalida");
 	}
-	@Override
-	public void abortar() {
-		// TODO añadir implementación abortar()
+	
+	public boolean estaMotorDisponible() {
+		return false;
 	}
 }

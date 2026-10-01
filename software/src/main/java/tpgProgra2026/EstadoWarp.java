@@ -7,5 +7,8 @@ public interface EstadoWarp {
 	public void pasarAWarp();
 	public void enfriar();
 	public void dejarDisponible();
-	public void abortar(); // implementamos? cómo?
+//	public void abortar(); // en esta primera parte no se implementa
+
+	public boolean estaMotorDisponible();
+
 }

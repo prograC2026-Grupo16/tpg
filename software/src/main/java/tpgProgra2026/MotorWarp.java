@@ -8,13 +8,17 @@ public class MotorWarp {
 		estado = new Disponible();
 	}
 	
-	// getters y setters -> están bien? están bien que sean protected (para que no sean públicas)?
-	protected void setEstado(EstadoWarp estado) {
+	// getters y setters
+	public void setEstado(EstadoWarp estado) {
 		this.estado = estado;
 	}
 	
-	protected EstadoWarp getEstado() {
+	public EstadoWarp getEstado() {
 		return estado;
+	}
+
+	public boolean estaMotorDisponible() {
+		return estado.estaMotorDisponible();
 	}
 	
 	// transiciones
@@ -34,8 +38,8 @@ public class MotorWarp {
 		estado.dejarDisponible();
 	}
 	
-	public void abortar() {
+/*	public void abortar() {
 		estado.abortar();
-	}
+	} */
 
 }
