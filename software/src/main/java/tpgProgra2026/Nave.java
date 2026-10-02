@@ -1,4 +1,4 @@
-package Tp;
+package tpgProgra2026;
 import java.util.ArrayList;
 
 
@@ -8,7 +8,7 @@ public abstract class Nave {
     protected String tipo;
     protected Recursos recursos;
     protected MotorWarp motorwarp;
-    protected ArrayList<Tripulacion> tripulacion = new ArrayList<>();
+    protected ArrayList<Tripulante> Tripulante = new ArrayList<>();
 
     public Nave(String id, String nombre, String tipo, MotorWarp motorwarp, int combustible, int energia) {
         super();
@@ -20,8 +20,8 @@ public abstract class Nave {
         this.recursos.setEnergia(energia);
     }
     
-    public void asignarTripulacion(Tripulacion t){
-        tripulacion.add(t);
+    public void asignarTripulante(Tripulante t){
+        Tripulante.add(t);
     }
     
     public boolean estaMotorDisponible(){
@@ -57,18 +57,11 @@ public abstract class Nave {
         return recursos;
     }
 
-    public MotorWarp getMotorwarp() {
+    public MotorWarp getMotorWarp() {
         return motorwarp;
     }
 
-    public ArrayList<Tripulacion> getTripulacion() {
-        return tripulacion;
-    }
-    
-    
-    
-    
-    
-    
-    
+    public ArrayList<Tripulante> getTripulante() {
+        return Tripulante;
+    }   
 }

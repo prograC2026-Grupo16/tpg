@@ -12,11 +12,11 @@ public abstract class Mision{
     }
 
     public void Ejecuto_Mision(){
-        preparar(ac);
-        ejecutar(ac);
-        EnergiaGanada(ac);
+        preparar();
+        ejecutar();
+        EnergiaGanada();
         evaluar();// ???
-        cerrar(ac);
+        cerrar();
     }
 
     public void preparar() {
@@ -30,8 +30,8 @@ public abstract class Mision{
     }
 
     public void ejecutar(){
-        if ( preparada ) {
-            ac.nave.consumirRecursos(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE);
+        if (preparada) {
+            ac.consumirRecursos(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE);
             System.out.println("Mision " + getTipomision() + "  Completada");
         }else{
             System.out.println("Mision" + getTipomision() + "  Fallida");

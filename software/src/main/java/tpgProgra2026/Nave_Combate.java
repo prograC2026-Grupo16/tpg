@@ -1,5 +1,4 @@
-package Tp;
-
+package tpgProgra2026;
 
 public class Nave_Combate extends Nave{
 
