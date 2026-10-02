@@ -11,3 +11,6 @@ target/
 
 # VS Code (por las dudas)
 .vscode/
+
+# IntelliJ
+.idea/
