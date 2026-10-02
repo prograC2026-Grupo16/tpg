@@ -25,7 +25,7 @@ public abstract class Mision{
             preparada = true;
         }
         else{
-            ac.registrarEvento("Preparacion fallida, no hay recursos suficientes");
+            ac.registrarEvento("Preparacion fallida, no hay recursos suficientes", "Tipo");
         }
     }
 
@@ -39,9 +39,9 @@ public abstract class Mision{
 
     public void cerrar() {
         if (preparada) {
-            ac.registrarEvento("Mision" + getTipomision() + " Completada con exito");
+            ac.registrarEvento("Mision" + getTipomision() + " Completada con exito", "Tipo");
         } else {
-            ac.registrarEvento("Mision " + getTipomision() + " fallida (No hay recursos disponibles)");
+            ac.registrarEvento("Mision " + getTipomision() + " fallida (No hay recursos disponibles)", "Tipo");
         }
     }
 
