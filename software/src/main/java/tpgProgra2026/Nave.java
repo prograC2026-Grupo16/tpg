@@ -35,27 +35,9 @@ public abstract class Nave {
     
     public void cargarEnergia(int cantidad){
         recursos.setEnergia(cantidad);
-    }
+    }   
     
-    public void consumirRecursos(int combustible, int cantidad, int desgaste){      // !!!! Consultar con el grupo, esta bien o deberia estar en recursos ?
-        recursos.gastarRecursos(combustible, cantidad, desgaste);
-    }
-    
-    public boolean alcanzaPara(int combustible, int energia){      //La idea es que recibe como parametros la cantidad de recursos que conlleva esa accion
-        int x;
-        int y;
-        x = recursos.getCombustible();                      //  !!! Deberia verificar desgaste ??
-        y = recursos.getEnergia();
-        return x > combustible && y > energia;
-    }
-    
-    public boolean requiereMantenimiento(){
-        int x;
-        x = recursos.getDesgaste();
-        return x >= 80;
-    }
-    
-    public void realizarMantenimiento(){        //Muy posible reciba cambios
+    public void realizarMantenimiento(){
         recursos.setDesgaste();
     }
 
