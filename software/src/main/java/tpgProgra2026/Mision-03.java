@@ -1,8 +1,16 @@
-public class Mision03 extends Mision{
-    ENERGIA_GANADA = 5;
+package tpgProgra2026;
 
-    public Mision03() {
+public class Mision03 extends Mision{
+    private final int ENERGIA_GANADA = 5;
+
+    public Mision03(Asistente ac) {
+        super(ac);
     }
 
     public void EnergiaGanada(){}
+
+    @Override
+    public String getTipomision(){
+        return "03";
+    }
 }

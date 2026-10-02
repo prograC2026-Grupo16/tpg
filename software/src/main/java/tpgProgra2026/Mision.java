@@ -1,42 +1,47 @@
+package tpgProgra2026;
+
 public abstract class Mision{
+
     protected final int COSTO_COMBUSTIBLE = 4; // Por si luego cambia el valor
     protected int COSTO_DESGASTE = 4;
     private boolean preparada = false;
+    protected Asistente ac;
 
-
-    public Mision() {
+    public Mision(Asistente ac) {
+        this.ac = ac;
     }
 
-    // Supongo que debo tener la referencia a una nave para poder saber si es posible ejecutar la mision
-    public void Ejecuto_Mision(Nave nave){
-        preparar(nave);
-        if(preparada){
-            ejecutar(nave); // Que puedo hacer en ejecutar ???
-            EnergiaGanada(nave);
-        }
+    public void Ejecuto_Mision(){
+        preparar(ac);
+        ejecutar(ac);
+        EnergiaGanada(ac);
         evaluar();// ???
-        cerrar(nave);
+        cerrar(ac);
     }
 
-    public void preparar(Nave nave) {
-        if (nave.getCombustible() >= COSTO_COMBUSTIBLE && (100 - nave.getDesgaste()) >= COSTO_DESGASTE) {
-                nave.bitacora.registrarEvento("Nave preparada para mision"); // Mi idea de implementacion de bitacora
+    public void preparar() {
+        if ( ac.alcanzaPara(COSTO_COMBUSTIBLE, 0) && ac.estaMotorDisponible()) { // Desgaste no contemplado en metodo alcanzaPara - MODIFICAR
+                ac.registrarEvento("Nave preparada para mision", "Tipo");
             preparada = true;
         }
         else{
-            nave.bitacora.registrarEvento("Preparacion fallida, no hay recursos suficientes");
+            ac.registrarEvento("Preparacion fallida, no hay recursos suficientes");
         }
     }
 
     public void ejecutar(){
-        //No se que hacer acá
+        if ( preparada ) {
+            System.out.println("Mision " + getTipomision() + "  Completada");
+        }else{
+            System.out.println("Mision" + getTipomision() + "  Fallida");
+        }
     }
 
-    public void cerrar(Nave nave) {
+    public void cerrar() {
         if (preparada) {
-            nave.bitacora.registrarEvento("Mision Completada con exito");
+            ac.registrarEvento("Mision" + getTipomision() + " Completada con exito");
         } else {
-            nave.bitacora.registrarEvento("Mision fallida (No hay recursos disponibles)");
+            ac.registrarEvento("Mision " + getTipomision() + " fallida (No hay recursos disponibles)");
         }
     }
 
@@ -45,4 +50,5 @@ public abstract class Mision{
     }
 
     public abstract void EnergiaGanada();
+    public abstract String getTipomision();
 }
