@@ -20,7 +20,7 @@ public abstract class Mision{
     }
 
     public void preparar() {
-        if ( ac.alcanzaPara(COSTO_COMBUSTIBLE, 0) && ac.estaMotorDisponible()) { // Desgaste no contemplado en metodo alcanzaPara - MODIFICAR
+        if ( ac.alcanzaPara(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE) && ac.estaMotorDisponible()) { // Desgaste no contemplado en metodo alcanzaPara - MODIFICAR
                 ac.registrarEvento("Nave preparada para mision", "Tipo");
             preparada = true;
         }
@@ -31,6 +31,7 @@ public abstract class Mision{
 
     public void ejecutar(){
         if ( preparada ) {
+            ac.nave.consumirRecursos(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE);
             System.out.println("Mision " + getTipomision() + "  Completada");
         }else{
             System.out.println("Mision" + getTipomision() + "  Fallida");
