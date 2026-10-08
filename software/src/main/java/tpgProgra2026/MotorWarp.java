@@ -13,7 +13,7 @@ public class MotorWarp {
 	}
 	
 	/**
-	 * Constructor - instancia un objeto xD
+	 * Constructor - instancia un objeto
 	 * 
 	 */
 	public MotorWarp() {
@@ -38,7 +38,7 @@ public class MotorWarp {
 	 * Devuelve el estado del motor warp
 	 * Postcondicion:
 	 * - Devuelve un estado no null estado != null
-	 * @return el estado del motor warp xd
+	 * @return el estado del motor warp
 	 */
 	public EstadoWarp getEstado() {
 		return estado;
@@ -46,11 +46,12 @@ public class MotorWarp {
 
 	/**
 	 * Precondición
-	 * - estado != null
+	 * - this.estado != null
 	 * 
 	 * @return Booleano xD
 	 */
 	public boolean estaMotorDisponible() {
+		assert estado != null;
 		return estado.estaMotorDisponible();
 	}
 	
