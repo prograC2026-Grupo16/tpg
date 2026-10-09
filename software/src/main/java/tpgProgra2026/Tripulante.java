@@ -1,10 +1,7 @@
 
 package tpgProgra2026;
 
-/**
- *
- * @author lasso
- */
+
 public abstract class Tripulante {
     private int id;
     private int antiguedad;

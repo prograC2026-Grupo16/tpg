@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package tpgProgra2026;
 
-/**
- *
- * @author lasso
- */
+
 public class Capitan extends Tripulante{
     private double sueldo;
     public Capitan( int id, int antiguedad ){

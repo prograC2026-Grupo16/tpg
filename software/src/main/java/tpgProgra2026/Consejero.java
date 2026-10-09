@@ -1,10 +1,7 @@
 
 package tpgProgra2026;
 
-/**
- *
- * @author lasso
- */
+
 public class Consejero extends Tripulante{
     private int cantCons;
     private double sueldo;
