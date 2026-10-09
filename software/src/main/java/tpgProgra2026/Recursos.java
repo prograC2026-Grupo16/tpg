@@ -1,24 +1,45 @@
 package tpgProgra2026;
 
-
+/**
+ * @invariante combustible >= 0 && energia >= 0 && desgaste >= 0
+ */
 public class Recursos {
     private int combustible = 0;
     private int energia = 0;
     private int desgaste = 0;
-    
-    public void setCombustible(int cantidad){
+
+    /**
+     * @pre  cantidad >= 0
+     * @post getCombustible() == combustible anterior + cantidad
+     */
+    public void setCombustible(int cantidad) {
         combustible += cantidad;
     }
-    
-    public void setEnergia(int cantidad){
+
+    /**
+     * @pre  cantidad >= 0
+     * @post getEnergia() == energia anterior + cantidad
+     */
+    public void setEnergia(int cantidad) {
         energia += cantidad;
     }
-    
-    public void setDesgaste(){
+
+    /**
+     * Reinicia el desgaste (mantenimiento).
+     * @post getDesgaste() == 0
+     */
+    public void setDesgaste() {
         desgaste = 0;
     }
-    
-    public void gastarRecursos( int combustible, int enegia, int desgaste){
+
+    /**
+     * @pre  combustible >= 0 && energia >= 0 && desgaste >= 0
+     * @pre  combustible <= getCombustible() && energia <= getEnergia()
+     * @post getCombustible() == combustible anterior - combustible
+     * @post getEnergia() == energia anterior - energia
+     * @post getDesgaste() == desgaste anterior + desgaste
+     */
+    public void gastarRecursos(int combustible, int energia, int desgaste) {
         this.combustible -= combustible;
         this.energia -= energia;
         this.desgaste += desgaste;
@@ -35,9 +56,4 @@ public class Recursos {
     public int getDesgaste() {
         return desgaste;
     }
-    
-    
-    
-    
-    
 }

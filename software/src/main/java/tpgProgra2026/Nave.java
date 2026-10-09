@@ -1,7 +1,10 @@
 package tpgProgra2026;
 import java.util.ArrayList;
 
-
+/**
+ * @invariante id != null && nombre != null && tipo != null
+ * @invariante recursos != null && motorwarp != null && Tripulante != null
+ */
 public abstract class Nave {
     protected String id;
     protected String nombre;
@@ -10,34 +13,56 @@ public abstract class Nave {
     protected MotorWarp motorwarp;
     protected ArrayList<Tripulante> Tripulante = new ArrayList<>();
 
+    /**
+     * @pre  id != null && nombre != null && tipo != null && motorwarp != null
+     * @pre  combustible >= 0 && energia >= 0
+     * @post getRecursos().getCombustible() == combustible
+     * @post getRecursos().getEnergia() == energia
+     * @post getTripulante().isEmpty()
+     */
     public Nave(String id, String nombre, String tipo, MotorWarp motorwarp, int combustible, int energia) {
-        super();
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
         this.motorwarp = motorwarp;
+        this.recursos = new Recursos();
         this.recursos.setCombustible(combustible);
         this.recursos.setEnergia(energia);
     }
-    
-    public void asignarTripulante(Tripulante t){
+
+    /**
+     * @pre  t != null && !getTripulante().contains(t)
+     * @post getTripulante().contains(t)
+     * @post getTripulante().size() == tamanio anterior + 1
+     */
+    public void asignarTripulante(Tripulante t) {
         Tripulante.add(t);
     }
-    
-    public boolean estaMotorDisponible(){
+
+    public boolean estaMotorDisponible() {
         return motorwarp.estaMotorDisponible();
     }
-    
-    
-    public void cargarCombustible(int cantidad){
+
+    /**
+     * @pre  cantidad >= 0
+     * @post getRecursos().getCombustible() == combustible anterior + cantidad
+     */
+    public void cargarCombustible(int cantidad) {
         recursos.setCombustible(cantidad);
     }
-    
-    public void cargarEnergia(int cantidad){
+
+    /**
+     * @pre  cantidad >= 0
+     * @post getRecursos().getEnergia() == energia anterior + cantidad
+     */
+    public void cargarEnergia(int cantidad) {
         recursos.setEnergia(cantidad);
-    }   
-    
-    public void realizarMantenimiento(){
+    }
+
+    /**
+     * @post getRecursos().getDesgaste() == 0
+     */
+    public void realizarMantenimiento() {
         recursos.setDesgaste();
     }
 
@@ -63,5 +88,5 @@ public abstract class Nave {
 
     public ArrayList<Tripulante> getTripulante() {
         return Tripulante;
-    }   
+    }
 }
