@@ -62,9 +62,9 @@ public class Asistente {
      * @post no modifica el estado de la nave
      */
     public boolean alcanzaPara(int combustible, int energia, int desgaste) {
-        return getRecursos().getCombustible() > combustible
-            && getRecursos().getEnergia() > energia
-            && (getRecursos().getDesgaste() + desgaste) < LIMITE_DESGASTE;
+        return getRecursos().getCombustible() >= combustible
+            && getRecursos().getEnergia() >= energia
+            && (getRecursos().getDesgaste() + desgaste) <= LIMITE_DESGASTE;
     }
 
     public boolean requiereMantenimiento() {

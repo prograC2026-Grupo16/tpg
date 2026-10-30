@@ -21,7 +21,7 @@ public class Teniente extends Tripulante{
     @Override
     //@post retorna "Teniente"
     public String getCargo(){
-        return "Teniende";
+        return "Teniente";
     }
     // @post retorna un String no nulo que incluye id, antiguedad y cargo
     @Override
