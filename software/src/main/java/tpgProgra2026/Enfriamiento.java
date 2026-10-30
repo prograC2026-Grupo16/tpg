@@ -3,8 +3,8 @@ package tpgProgra2026;
 public class Enfriamiento implements EstadoWarp {
 	private MotorWarp motor;
 	
-	public Enfriamiento() {
-		
+	public Enfriamiento(MotorWarp motor) {
+		this.motor = motor;
 	}
 	
 	@Override
@@ -21,7 +21,7 @@ public class Enfriamiento implements EstadoWarp {
 	}
 	@Override
 	public void dejarDisponible() {
-		EstadoWarp estado = new Disponible();
+		EstadoWarp estado = new Disponible(motor);
 		motor.setEstado(estado);
 	}
 	

@@ -17,7 +17,7 @@ public class MotorWarp {
 	 * 
 	 */
 	public MotorWarp() {
-		estado = new Disponible();
+		estado = new Disponible(this);
 	}
 
 	/**

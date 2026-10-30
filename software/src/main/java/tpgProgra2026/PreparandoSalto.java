@@ -3,8 +3,8 @@ package tpgProgra2026;
 public class PreparandoSalto implements EstadoWarp {
 	private MotorWarp motor;
 	
-	public PreparandoSalto () {
-		
+	public PreparandoSalto (MotorWarp motor) {
+		this.motor = motor;
 	}
 	
 	@Override
@@ -13,7 +13,7 @@ public class PreparandoSalto implements EstadoWarp {
 	}
 	@Override
 	public void pasarAWarp() {
-		EstadoWarp estado = new EnWarp();
+		EstadoWarp estado = new EnWarp(motor);
 		motor.setEstado(estado);
 	}
 	@Override
