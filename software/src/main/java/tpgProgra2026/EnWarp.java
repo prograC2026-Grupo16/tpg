@@ -3,8 +3,8 @@ package tpgProgra2026;
 public class EnWarp implements EstadoWarp {
 	private MotorWarp motor;
 	
-	public EnWarp() {
-		
+	public EnWarp(MotorWarp motor) {
+		this.motor = motor;
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public class EnWarp implements EstadoWarp {
 	@Override
 	public void dejarDisponible() {
 		// por esta primera parte de la entrega esta transición es válida
-		EstadoWarp estado = new Disponible();
+		EstadoWarp estado = new Disponible(motor);
 		motor.setEstado(estado);
 	}
 	
