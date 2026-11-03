@@ -1,8 +1,8 @@
 package tpgProgra2026.TableroDestino;
 
-import java.util.ArrayList;
+import tpgProgra2026.Asistente;
 
-public class ElementoDelUniverso {
-    private ArrayList<Observador> observadores;
-    public ElementoDelUniverso() {}
+public interface ElementoDelUniverso {
+    void interactuar(Asistente a);
+
 }
