@@ -25,7 +25,7 @@ public class PreparandoSalto implements EstadoWarp {
 		System.out.println("Transición Invalida");
 	}
 	
-	public boolean estaMotorDisponible() {
+	public boolean estaSaltoWarpDisponible() {
 		return false;
 	}
 }

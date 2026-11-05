@@ -17,20 +17,25 @@ public class EnWarp implements EstadoWarp {
 	}
 	@Override
 	public void enfriar() {
-		/*
-		EstadoWarp estado = new Enfriamiento();
+		EstadoWarp estado = new Enfriamiento(motor);
 		motor.setEstado(estado);
-		*/
-		System.out.println("por esta primera parte de la entrega esta transición es válida");
+
+		// el thread sleep va en esta transición o en la siguiente??
+
+		try{
+			Thread.sleep(1000); // duermo al Thread por 1seg (1000ms)
+		}
+		catch (InterruptedException e) {
+			System.out.println("Hubo una interrupción (? ");
+		}
+
 	}
 	@Override
 	public void dejarDisponible() {
-		// por esta primera parte de la entrega esta transición es válida
-		EstadoWarp estado = new Disponible(motor);
-		motor.setEstado(estado);
+		System.out.println("Transición Invalida");
 	}
 	
-	public boolean estaMotorDisponible() {
-		return false;
+	public boolean estaSaltoWarpDisponible() {
+		return true;
 	}
 }

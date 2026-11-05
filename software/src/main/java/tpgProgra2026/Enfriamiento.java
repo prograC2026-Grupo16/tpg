@@ -25,7 +25,7 @@ public class Enfriamiento implements EstadoWarp {
 		motor.setEstado(estado);
 	}
 	
-	public boolean estaMotorDisponible() {
+	public boolean estaSaltoWarpDisponible() {
 		return false;
 	}
 }
