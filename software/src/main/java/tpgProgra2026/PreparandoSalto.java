@@ -8,24 +8,14 @@ public class PreparandoSalto implements EstadoWarp {
 	}
 	
 	@Override
-	public void prepararSalto() {
-		System.out.println("Transición Invalida");
-	}
-	@Override
-	public void pasarAWarp() {
-		EstadoWarp estado = new EnWarp(motor);
-		motor.setEstado(estado);
-	}
-	@Override
-	public void enfriar() {
-		System.out.println("Transición Invalida");
-	}
-	@Override
-	public void dejarDisponible() {
-		System.out.println("Transición Invalida");
+	public void saltar() {
+		motor.realizarSaltoCorto();
+		motor.setEstado(new EnWarp(motor));	
 	}
 	
-	public boolean estaSaltoWarpDisponible() {
-		return false;
+	@Override
+	public void saltarWarp() {
+		motor.realizarSaltoCorto();
+		motor.setEstado(new EnWarp(motor));		
 	}
 }

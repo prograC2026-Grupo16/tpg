@@ -1,6 +1,6 @@
 package tpgProgra2026;
 
-public class EnWarp implements EstadoWarp {
+public class EnWarp implements EstadoWarp{
 	private MotorWarp motor;
 	
 	public EnWarp(MotorWarp motor) {
@@ -8,34 +8,13 @@ public class EnWarp implements EstadoWarp {
 	}
 	
 	@Override
-	public void prepararSalto() {
-		System.out.println("Transición Invalida");
-	}
-	@Override
-	public void pasarAWarp() {
-		System.out.println("Transición Invalida");
-	}
-	@Override
-	public void enfriar() {
-		EstadoWarp estado = new Enfriamiento(motor);
-		motor.setEstado(estado);
-
-		// el thread sleep va en esta transición o en la siguiente??
-
-		try{
-			Thread.sleep(1000); // duermo al Thread por 1seg (1000ms)
-		}
-		catch (InterruptedException e) {
-			System.out.println("Hubo una interrupción (? ");
-		}
-
-	}
-	@Override
-	public void dejarDisponible() {
-		System.out.println("Transición Invalida");
+	public void saltar() {
+		motor.realizarSaltoCorto();
 	}
 	
-	public boolean estaSaltoWarpDisponible() {
-		return true;
+	@Override
+	public void saltarWarp() {
+		motor.realizarSaltoLargo();
+		motor.setEstado(new Enfriamiento(motor));
 	}
 }

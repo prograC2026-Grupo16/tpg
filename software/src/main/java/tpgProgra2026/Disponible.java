@@ -6,26 +6,16 @@ public class Disponible implements EstadoWarp {
 	public Disponible(MotorWarp motor) {
 		this.motor = motor;
 	}
-		
+	
 	@Override
-	public void prepararSalto() {
-		EstadoWarp estado = new PreparandoSalto(motor);
-		motor.setEstado(estado);
-	}
-	@Override
-	public void pasarAWarp() {
-		System.out.println("Transición Invalida");
-	}
-	@Override
-	public void enfriar() {
-		System.out.println("Transición Invalida");
-	}
-	@Override
-	public void dejarDisponible() {
-		System.out.println("Transición Invalida");
+	public void saltar() {
+		motor.realizarSaltoCorto();
+		motor.setEstado(new PreparandoSalto(motor));	
 	}
 	
-	public boolean estaSaltoWarpDisponible() {
-		return false;
+	@Override
+	public void saltarWarp() {
+		motor.realizarSaltoCorto();
+		motor.setEstado(new PreparandoSalto(motor));		
 	}
 }
