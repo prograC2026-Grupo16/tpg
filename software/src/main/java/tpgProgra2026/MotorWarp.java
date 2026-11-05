@@ -50,12 +50,25 @@ public class MotorWarp {
 	 * 
 	 * @return Booleano xD
 	 */
-	public boolean estaMotorDisponible() {
+	public boolean estaSaltoWarpDisponible() {
 		assert estado != null;
-		return estado.estaMotorDisponible();
+		return estado.estaSaltoWarpDisponible();
+	}
+
+	// transiciones visibles al resto de clases
+	public void saltar() {
+		// no hace nada ?
+	}
+	public void saltarWarp() {
+		if (estado.estaSaltoWarpDisponible()) {
+			// hacer salto
+			// descontar recursos
+			// pasar a enfriamiento
+		}
+			
 	}
 	
-	// transiciones
+	/* transiciones no visibles al resto de clases
 	public void prepararSalto() {
 		estado.prepararSalto();
 	}
@@ -72,8 +85,10 @@ public class MotorWarp {
 		estado.dejarDisponible();
 	}
 	
-/*	public void abortar() {
+	public void abortar() {
 		estado.abortar();
-	} */
+	}
+	
+	*/
 
 }
