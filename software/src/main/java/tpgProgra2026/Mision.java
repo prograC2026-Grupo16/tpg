@@ -1,5 +1,10 @@
 package tpgProgra2026;
 
+import tpgProgra2026.TableroDestino.ElementoDelUniverso;
+import tpgProgra2026.TableroDestino.Posicion;
+
+import java.util.ArrayList;
+
 /**
  * Clase abstracta que define una misión de la nave con el patrón Template Method: Ejecuto_Mision() fija el orden de los pasos (preparar, ejecutar, EnergiaGanada, evaluar y cerrar) y las subclases aportan la energía ganada y el identificador de la misión.
  *
@@ -12,8 +17,10 @@ public abstract class Mision {
     protected final int COSTO_COMBUSTIBLE = 4; // Por si luego cambia el valor
     protected final int COSTO_DESGASTE = 4;
     private boolean preparada = false;
+    private boolean exito = false;
     protected Asistente ac;
-
+    private Posicion destino = null;
+    private ArrayList<Posicion> ruta = null;
     /**
      * @pre el Asistente ac recibido no es null y está inicializado.
      */
@@ -26,7 +33,7 @@ public abstract class Mision {
      * @post ejecuta en orden preparar, ejecutar, EnergiaGanad, evaluar y cerrar; deja registrado en la bitácora el cierre de la misión.
      * @post Si no pudo prepararse, no se consumen recursos ni se gana energía.
      */
-    public void Ejecuto_Mision() {
+    public final void  Ejecuto_Mision() {
         preparar();
         ejecutar();
         if (preparada) {
@@ -40,11 +47,14 @@ public abstract class Mision {
      * @post preparada es true si y solo si hay recursos suficientes y el motor está disponible (incluso si una ejecución anterior la había dejado en true); registra exactamente un evento y no consume recursos.
      */
     public void preparar() {
-        preparada = ac.alcanzaPara(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE) && ac.estaMotorDisponible();
-        if (preparada) {
-            ac.registrarEvento("Nave preparada para mision", "Tipo");
-        } else {
-            ac.registrarEvento("Preparacion fallida, no hay recursos suficientes", "Tipo");
+        if (ac.alcanzaPara(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE)) {
+
+            // 2. Cálculo de ruta (radar de largo alcance), todavía no entiendo como implementarlo creo que destino es una posición y ruta es un array list de posición
+            destino = calcularDestino(); // Todavía sin implementar
+            ruta = ac.calcularRuta(destino); // Todavía sin implementar
+            preparada = true;
+            ac.registrarEvento("Mision " + getTipomision() + " preparada: ruta de " + ruta.size() + " pasos hacia (" + destino.getX() + "," + destino.getY() + ")", "Mision");
+
         }
     }
 
@@ -54,28 +64,66 @@ public abstract class Mision {
     public void ejecutar() {
         if (preparada) {
             ac.consumirRecursos(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE);
-            System.out.println("Mision " + getTipomision() + "  Completada");
-        } else {
-            System.out.println("Mision " + getTipomision() + "  Fallida");
+            ac.registrarEvento("Despegue: -" + COSTO_COMBUSTIBLE + " combustible, +" + COSTO_DESGASTE + " desgaste", "Mision");
+
+            // Mientras la nave siga con vida y no haya alcanzado el destino
+            while (ac.estaVivaNave() && !llegoAlDestino()) {
+
+                // Turno de la nave
+                ElementoDelUniverso elemento = ac.inspeccionarPosicion(); // esto lo implementa tablero
+                if (elemento != null) {
+                    Posicion act = ac.getPosicionNave();// esto lo implementa tablero
+                    ac.registrarEvento("La nave interactúa con " + elemento.getTipoElemento() + " en la posicion actual", "Encuentro");
+                    elemento.interactuar(ac);
+                }
+
+                // si la nave es destruida
+                if(!ac.estaVivaNave()) {
+                    ac.registrarEvento("La nave ha sido destruida. ", "Destruccion");
+                    exito = false;
+                    break;
+                }
+
+                // Escaneo (radar de corto alcance) y planificación
+                ElementoDelUniverso[][] alrededores = ac.escanear();
+                ac.planificarMovimiento(alrededores);
+
+                // Consumo de combustible por turno
+                ac.consumirRecursos(0, 0, 0); // Se gastaba combustible por cada salto??
+
+                // Turno del tablero
+                ac.avanzarTurno();
+
+                // Pausa con Thread después la implementamos
+            }
+
+            if (ac.estaVivaNave() && llegoAlDestino()) {
+                exito = true;
+            }
         }
     }
 
     /**
-     * @post registra exactamente un evento, de éxito si preparada o de fallo (sin recursos disponibles) en caso contrario.
+     * @post
      */
     public void cerrar() {
-        if (preparada) {
-            ac.registrarEvento("Mision " + getTipomision() + " Completada con exito", "Tipo");
-        } else {
-            ac.registrarEvento("Mision " + getTipomision() + " fallida (No hay recursos disponibles)", "Tipo");
+        if (preparada && exito) {
+            EnergiaGanada();
         }
     }
 
     /**
-     * @post por ahora es un metodo vacio, no se sabe que implementar.
+     * @post
      */
     public void evaluar() {
-        //?????
+        if (preparada && exito) {
+            EnergiaGanada();
+            ac.registrarEvento("Misión " + getTipomision() + " Cumplida. ", "Mision");
+        } else if (preparada && !exito) {
+            ac.registrarEvento("Misión " + getTipomision() + " Fallida. No se otorgan recompensas.", "Mision");
+        } else if (!preparada) {
+            ac.registrarEvento("Mision " + getTipomision() + " Fallida (No hay recursos disponibles)", "Tipo");
+        }
     }
 
     /**

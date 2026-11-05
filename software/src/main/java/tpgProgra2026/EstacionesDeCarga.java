@@ -14,4 +14,8 @@ public class EstacionesDeCarga implements ElementoDelUniverso {
         a.cargarCombustible(combustible);
         a.cargarEnergia(energia);
     }
+
+    public String getTipoElemento() {
+        return "Estacion de carga";
+    }
 }

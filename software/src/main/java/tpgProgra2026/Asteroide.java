@@ -10,4 +10,8 @@ public class Asteroide implements ElementoDelUniverso {
     public void interactuar(Asistente a) {
         a.sacarEnergia(danio);
     }
+
+    public String getTipoElemento() {
+        return "Asteroide";
+    }
 }

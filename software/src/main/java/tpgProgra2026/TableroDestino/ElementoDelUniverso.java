@@ -5,4 +5,5 @@ import tpgProgra2026.Asistente;
 public interface ElementoDelUniverso {
     void interactuar(Asistente a);
 
+    String getTipoElemento();
 }
