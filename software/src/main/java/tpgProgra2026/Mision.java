@@ -106,18 +106,13 @@ public abstract class Mision {
     /**
      * @post
      */
-    public void cerrar() {
-        if (preparada && exito) {
-            EnergiaGanada();
-        }
-    }
+    public void cerrar() {}
 
     /**
      * @post
      */
     public void evaluar() {
         if (preparada && exito) {
-            EnergiaGanada();
             ac.registrarEvento("Misión " + getTipomision() + " Cumplida. ", "Mision");
         } else if (preparada && !exito) {
             ac.registrarEvento("Misión " + getTipomision() + " Fallida. No se otorgan recompensas.", "Mision");
