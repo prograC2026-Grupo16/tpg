@@ -14,13 +14,15 @@ import java.util.ArrayList;
  */
 public abstract class Mision {
 
-    protected final int COSTO_COMBUSTIBLE = 4; // Por si luego cambia el valor
-    protected final int COSTO_DESGASTE = 4;
-    private boolean preparada = false;
-    private boolean exito = false;
+    protected boolean preparada = false;
+    protected boolean exito = false;
     protected Asistente ac;
-    private Posicion destino = null;
-    private ArrayList<Posicion> ruta = null;
+    protected Posicion destino = null;
+    protected ArrayList<Posicion> ruta = null;
+    protected int gastadoCombustible = 0;
+    protected int gastadoEnergia = 0;
+    protected int gastadoDesgaste = 0;
+
     /**
      * @pre el Asistente ac recibido no es null y está inicializado.
      */
@@ -33,13 +35,10 @@ public abstract class Mision {
      * @post ejecuta en orden preparar, ejecutar, EnergiaGanad, evaluar y cerrar; deja registrado en la bitácora el cierre de la misión.
      * @post Si no pudo prepararse, no se consumen recursos ni se gana energía.
      */
-    public final void  Ejecuto_Mision() {
+    public final void Ejecuto_Mision() {
         preparar();
         ejecutar();
-        if (preparada) {
-            EnergiaGanada();
-        }
-        evaluar();// ???
+        evaluar();
         cerrar();
     }
 
@@ -47,7 +46,7 @@ public abstract class Mision {
      * @post preparada es true si y solo si hay recursos suficientes y el motor está disponible (incluso si una ejecución anterior la había dejado en true); registra exactamente un evento y no consume recursos.
      */
     public void preparar() {
-        if (ac.alcanzaPara(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE)) {
+        if (ac.alcanzaPara(getCostoCombustible(), getCostoEnergia(), getCostoDesgaste())) {
 
             // 2. Cálculo de ruta (radar de largo alcance), todavía no entiendo como implementarlo creo que destino es una posición y ruta es un array list de posición
             destino = calcularDestino(); // Todavía sin implementar
@@ -63,16 +62,17 @@ public abstract class Mision {
      */
     public void ejecutar() {
         if (preparada) {
-            ac.consumirRecursos(COSTO_COMBUSTIBLE, 0, COSTO_DESGASTE);
-            ac.registrarEvento("Despegue: -" + COSTO_COMBUSTIBLE + " combustible, +" + COSTO_DESGASTE + " desgaste", "Mision");
-
+            ac.consumirRecursos(getCostoCombustible(), getCostoEnergia(), getCostoDesgaste());
+            gastadoCombustible += getCostoCombustible();
+            gastadoEnergia += getCostoEnergia();
+            gastadoDesgaste += getCostoDesgaste();
             // Mientras la nave siga con vida y no haya alcanzado el destino
             while (ac.estaVivaNave() && !llegoAlDestino()) {
 
                 // Turno de la nave
-                ElementoDelUniverso elemento = ac.inspeccionarPosicion(); // esto lo implementa tablero
+                ElementoDelUniverso elemento = tablero.inspeccionarPosicion(); // esto lo implementa tablero
                 if (elemento != null) {
-                    Posicion act = ac.getPosicionNave();// esto lo implementa tablero
+                    Posicion act = tablero.getPosicionNave();// esto lo implementa tablero
                     ac.registrarEvento("La nave interactúa con " + elemento.getTipoElemento() + " en la posicion actual", "Encuentro");
                     elemento.interactuar(ac);
                 }
@@ -89,10 +89,10 @@ public abstract class Mision {
                 ac.planificarMovimiento(alrededores);
 
                 // Consumo de combustible por turno
-                ac.consumirRecursos(0, 0, 0); // Se gastaba combustible por cada salto??
+                ac.consumirRecursos(0, 0, 0); // ¿Se gastaba combustible por cada salto?
 
                 // Turno del tablero
-                ac.avanzarTurno();
+                destino.avanzarTurno();
 
                 // Pausa con Thread después la implementamos
             }
@@ -112,23 +112,24 @@ public abstract class Mision {
      * @post
      */
     public void evaluar() {
-        if (preparada && exito) {
-            ac.registrarEvento("Misión " + getTipomision() + " Cumplida. ", "Mision");
-        } else if (preparada && !exito) {
-            ac.registrarEvento("Misión " + getTipomision() + " Fallida. No se otorgan recompensas.", "Mision");
-        } else if (!preparada) {
-            ac.registrarEvento("Mision " + getTipomision() + " Fallida (No hay recursos disponibles)", "Tipo");
-        }
-    }
+        if (preparada) {
+            if (exito)
+                ac.registrarEvento("Misión " + getTipomision() + " Cumplida. ", "Mision");
+            else
+                ac.registrarEvento("Misión " + getTipomision() + " Fallida. No se otorgan recompensas.", "Mision");
 
-    /**
-     * @post la energía de la nave nunca disminuye; aumenta en la cantidad propia del tipo de mision, o queda igual si el tipo de mision no otorga energía.
-     */
-    public abstract void EnergiaGanada();
+            ac.registrarEvento("Cantidad de recursos gastados: " + gastadoCombustible + " combustible, +" + gastadoEnergia + " energia, +" + gastadoDesgaste + " Desgaste.", "Mision");
+        }else
+             ac.registrarEvento("Mision " + getTipomision() + " Fallida (No hay recursos disponibles)", "Tipo");
+
+    }
 
     /**
      * @post devuelve un String no nulo y no vacío, siempre el mismo para una misma variante, que se concatena en los mensajes de registro y de consola.
      */
     public abstract String getTipomision();
 
+    public abstract int getCostoCombustible();
+    public abstract int getCostoEnergia();
+    public abstract int getCostoDesgaste();
 }

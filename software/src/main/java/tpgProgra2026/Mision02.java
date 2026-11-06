@@ -1,5 +1,7 @@
 package tpgProgra2026;
 
+import java.util.Random;
+
 /**
  * Variante de misión tipo 01: al completarse otorga energía a la nave.
  *
@@ -8,7 +10,9 @@ package tpgProgra2026;
  */
 public class Mision02 extends Mision{
     private final int ENERGIA_GANADA = 5;
-
+    private final int COSTO_ENERGIA = 10;
+    private final int COSTO_DESGASTE = 4;
+    private final int COSTO_COMBUSTIBLE = 4;
     /**
      * @pre el Asistente ac recibido no es null y está inicializado.
      * @post la misión queda asociada a ac y sin preparar.
@@ -17,13 +21,10 @@ public class Mision02 extends Mision{
         super(ac);
     }
 
-    /**
-     * @pre se invoca solo después de una ejecución exitosa de la misión.
-     * @pre Como consecuencia, EnergiaGanada() lanzaría NullPointerException si ac fuera nulo.
-     * @post la energía de la nave aumenta en ENERGIA_GANADA, delegando en ac.cargarEnergia.
-     */
-    public void EnergiaGanada(){
-        ac.cargarEnergia(ENERGIA_GANADA);// o nave.setEnergia(nave.getEnergia() + ENERGIA_GANADA)
+    @Override
+    public void cerrar() {
+        if(exito)
+            ac.cargarGemas(random.nextInt(81) + 20);
     }
 
     /**
@@ -32,5 +33,20 @@ public class Mision02 extends Mision{
     @Override
     public String getTipomision(){
         return "02";
+    }
+
+    @Override
+    public int  getCostoCombustible() {
+        return COSTO_COMBUSTIBLE;
+    }
+
+    @Override
+    public int getCostoEnergia() {
+        return COSTO_ENERGIA;
+    }
+
+    @Override
+    public int getCostoDesgaste() {
+        return COSTO_DESGASTE;
     }
 }

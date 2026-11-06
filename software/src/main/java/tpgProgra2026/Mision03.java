@@ -8,7 +8,9 @@ package tpgProgra2026;
  */
 public class Mision03 extends Mision{
 //    private final int ENERGIA_GANADA = 0;
-
+    private final int COSTO_ENERGIA = 0;
+    private final int COSTO_DESGASTE = 4;
+    private final int COSTO_COMBUSTIBLE = 4;
     /**
      * @pre el Asistente ac recibido no es null y está inicializado.
      * @post la misión queda asociada a ac y sin preparar.
@@ -17,10 +19,11 @@ public class Mision03 extends Mision{
         super(ac);
     }
 
-    /**
-     * @post deja inalterado el estado de energía de la nave, ya que esta variante no otorga energía (cuerpo vacío).
-     */
-    public void EnergiaGanada(){}
+    @Override
+    public void cerrar() {
+        if (exito)
+            ac.realizarMantenimiento();
+    }
 
     /**
      * @post devuelve exactamente el String "03" para identificar la misión en la bitácora y en la consola.
@@ -28,5 +31,20 @@ public class Mision03 extends Mision{
     @Override
     public String getTipomision(){
         return "03";
+    }
+
+    @Override
+    public int  getCostoCombustible() {
+        return COSTO_COMBUSTIBLE;
+    }
+
+    @Override
+    public int getCostoEnergia() {
+        return COSTO_ENERGIA;
+    }
+
+    @Override
+    public int getCostoDesgaste() {
+        return COSTO_DESGASTE;
     }
 }
