@@ -12,6 +12,7 @@ public abstract class Nave {
     protected Recursos recursos;
     protected MotorWarp motorwarp;
     protected ArrayList<Tripulante> Tripulante = new ArrayList<>();
+    protected boolean destruida = false;
 
     /**
      * @pre  id != null && nombre != null && tipo != null && motorwarp != null
@@ -37,6 +38,14 @@ public abstract class Nave {
      */
     public void asignarTripulante(Tripulante t) {
         Tripulante.add(t);
+    }
+
+    public boolean estaViva() {
+        return !destruida;
+    }
+
+    public void Destruir() {
+        destruida = true;
     }
 
     public boolean estaMotorDisponible() {
@@ -89,4 +98,5 @@ public abstract class Nave {
     public ArrayList<Tripulante> getTripulante() {
         return Tripulante;
     }
+
 }
