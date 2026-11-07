@@ -161,7 +161,11 @@ public class Asistente {
      */
     /*
     public void consumirRecursos(int combustible, int cantidad, int desgaste) {
-        getRecursos().gastarRecursos(combustible, cantidad, desgaste);
+        Recursos recursos = getRecursos();
+        recursos.gastarRecursos(combustible, cantidad, desgaste);
+        if(recursos.getCombustible() <= 0 || recursos.getEnergia() <= 0 || recursos.getDesgaste() >= 100) {
+            destruirNave(); // Destruyo la nave
+        }
     }
     */
 
@@ -177,4 +181,31 @@ public class Asistente {
             && (getRecursos().getDesgaste() + desgaste) <= LIMITE_DESGASTE;
     }
     */
+
+    public boolean requiereMantenimiento() {
+        return getRecursos().getDesgaste() >= LIMITE_DESGASTE;
+    }
+
+    /**
+     * @post !requiereMantenimiento() && getRecursos().getDesgaste() == 0
+     */
+    public void realizarMantenimiento() {
+        getRecursos().setDesgaste();
+    }
+
+    public boolean estaVivaNave(){
+        return nave.estaViva();
+    }
+
+    public void destruirNave(){
+        nave.Destruir();
+    }
+
+    public Recursos getRecursos() {
+        return nave.getRecursos();
+    }
+
+    public MotorWarp getMotorWarp() {
+        return nave.getMotorWarp();
+    }
 }
