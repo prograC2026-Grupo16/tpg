@@ -1,36 +1,37 @@
 
-package tpgProgra2026;
+package tripulacionPackage;
 /*
 * @pre  tripulante != null
-* @post getOrigen() equals "Marciano"
+* @post getOrigen() equals "Vulcano"
 * @post getCargo() equals tripulante.getCargo()
-* @post getSueldo() == tripulante.getSueldo() + 18
+* @post getSueldo() == tripulante.getSueldo() + 30
 */
-public class DecoratorMarciano extends Decorator{
+public class DecoratorVulcano extends Decorator{
         public String origen;
     
-    public DecoratorMarciano( Tripulante tripulante ){
+    public DecoratorVulcano( Tripulante tripulante){
         super(tripulante);
-        this.origen =   "Marciano";
+        this.origen =   "Vulcano";
     }
-    @Override
+    //@post retorna "Vulcano"
+    public String getOrigen(){
+        return origen;
+    }
+     @Override
     //@post retorna el mismo cargo que el tripulante decorado
     public String getCargo(){
         return tripulante.getCargo();
     }
-   //@post retorna "Marciano"
-    public String getOrigen(){
-        return origen;
-    }
     @Override
-    //@post retorna tripulante.getSueldo() + 18
+    //@post retorna tripulante.getSueldo() + 30
     public double getSueldo(){
-        return tripulante.getSueldo() + 18;
+        return tripulante.getSueldo() + 30;
     }
     @Override
     //@post retorna un String no nulo que contiene la descripcion del tripulante decorado
     public String descripcion(){
         return tripulante.descripcion() + " El origen es " + getOrigen() + " y su sueldo es " + getSueldo();
     }
+    
     
 }

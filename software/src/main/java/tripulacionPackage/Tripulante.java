@@ -1,5 +1,5 @@
 
-package tpgProgra2026;
+package tripulacionPackage;
 
 
 public abstract class Tripulante {

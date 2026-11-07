@@ -1,4 +1,4 @@
-package tpgProgra2026;
+package motorPackage;
 
 public class Disponible implements EstadoWarp {
 	private MotorWarp motor;

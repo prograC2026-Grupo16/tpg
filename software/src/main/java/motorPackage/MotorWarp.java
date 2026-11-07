@@ -1,7 +1,9 @@
-package tpgProgra2026;
+package motorPackage;
+import tpgProgra2026.Nave;
 
 public class MotorWarp {
 	private EstadoWarp estado;
+	private Nave nave;
 	
 	/**
 	 * Invariantes:
@@ -16,7 +18,8 @@ public class MotorWarp {
 	 * Constructor - instancia un objeto
 	 * 
 	 */
-	public MotorWarp() {
+	public MotorWarp(Nave nave) {
+		this.nave = nave;
 		estado = new Disponible(this);
 	}
 
@@ -28,14 +31,13 @@ public class MotorWarp {
 	 * - estado != null;
 	 * 
 	 */
-	public void setEstado(EstadoWarp estado) {
+	protected void setEstado(EstadoWarp estado) { // solo se puede llamar desde esta clase, subclases o el mismo paquete
 		assert estado != null : "El estado pasado como parámetro es null";
 		this.estado = estado;
 		assert invariantes() : "El estado de la instancia es null";
 	}
 	
 	/**
-	 * Devuelve el estado del motor warp
 	 * Postcondicion:
 	 * - Devuelve un estado no null estado != null
 	 * @return el estado del motor warp
@@ -43,44 +45,36 @@ public class MotorWarp {
 	public EstadoWarp getEstado() {
 		return estado;
 	}
+	
+	/**
+	 * Postcondicion:
+	 * - Devuelve una nave no null nave != null
+	 * @return la nave que compone al motor warp
+	 */
+	public Nave getNave() {
+		return nave;
+	}
 
 	// transiciones 
 	public void saltar() {
+		// gastar 2 puntos de combustible
 		estado.saltar();
 	}
 	public void saltarWarp() {
 		estado.saltarWarp();			
 	}
 	
-	public void realizarSaltoCorto() {
-		// DO SOMETHING
+	protected void realizarSaltoCorto() {
+		if (nave.getRecursos().getCombustible() >= 2) {
+//			nave.getRecursos().set
+			// TODO: Hacer el Salto
+		}
+
 	}
 
-	public void realizarSaltoLargo() {
+	protected void realizarSaltoLargo() {
+		
 		// DO SOMETHING
 	}
 	
-	/* transiciones no visibles al resto de clases
-	public void prepararSalto() {
-		estado.prepararSalto();
-	}
-	
-	public void pasarAWarp() {
-		estado.pasarAWarp();
-	}
-	
-	public void enfriar() {
-		estado.enfriar();
-	}
-	
-	public void dejarDisponible() {
-		estado.dejarDisponible();
-	}
-	
-	public void abortar() {
-		estado.abortar();
-	}
-	
-	*/
-
 }

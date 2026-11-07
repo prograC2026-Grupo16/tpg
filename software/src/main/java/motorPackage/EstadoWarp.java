@@ -1,4 +1,4 @@
-package tpgProgra2026;
+package motorPackage;
 
 public interface EstadoWarp {
 	public void saltar();

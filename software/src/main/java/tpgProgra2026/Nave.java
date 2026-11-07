@@ -1,5 +1,6 @@
 package tpgProgra2026;
 import java.util.ArrayList;
+import motorPackage.MotorWarp;
 
 /**
  * @invariante id != null && nombre != null && tipo != null
@@ -26,7 +27,7 @@ public abstract class Nave {
         this.tipo = tipo;
         this.motorwarp = motorwarp;
         this.recursos = new Recursos();
-        this.recursos.setCombustible(combustible);
+        this.recursos.cargarCombustible(combustible);
         this.recursos.setEnergia(energia);
     }
 
@@ -39,16 +40,13 @@ public abstract class Nave {
         Tripulante.add(t);
     }
 
-    public boolean estaMotorDisponible() {
-        return motorwarp.estaMotorDisponible();
-    }
 
     /**
      * @pre  cantidad >= 0
      * @post getRecursos().getCombustible() == combustible anterior + cantidad
      */
     public void cargarCombustible(int cantidad) {
-        recursos.setCombustible(cantidad);
+        recursos.cargarCombustible(cantidad);
     }
 
     /**
@@ -56,14 +54,14 @@ public abstract class Nave {
      * @post getRecursos().getEnergia() == energia anterior + cantidad
      */
     public void cargarEnergia(int cantidad) {
-        recursos.setEnergia(cantidad);
+        recursos.cargarEnergia(cantidad);
     }
 
     /**
      * @post getRecursos().getDesgaste() == 0
      */
     public void realizarMantenimiento() {
-        recursos.setDesgaste();
+        recursos.reiniciarDesgaste();
     }
 
     public String getId() {

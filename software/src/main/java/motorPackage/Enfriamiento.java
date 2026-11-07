@@ -1,4 +1,4 @@
-package tpgProgra2026;
+package motorPackage;
 
 public class Enfriamiento implements EstadoWarp {
 	private MotorWarp motor;
@@ -15,7 +15,8 @@ public class Enfriamiento implements EstadoWarp {
 	
 	@Override
 	public void saltarWarp() {
-		motor.realizarSaltoCorto(); // jaja cagaste Light
+		// generar 3 puntos de desgaste en la nave
+		motor.realizarSaltoCorto();
 		motor.setEstado(new Disponible(motor));
 	}
 }
