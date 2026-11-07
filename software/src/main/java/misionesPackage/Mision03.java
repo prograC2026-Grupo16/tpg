@@ -1,4 +1,5 @@
-package tpgProgra2026;
+package misionesPackage;
+import tpgProgra2026.Asistente;
 
 /**
  * Variante de misión tipo 03: no otorga energía a la nave.

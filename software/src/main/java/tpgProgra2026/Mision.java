@@ -1,4 +1,5 @@
 package tpgProgra2026;
+import tpgProgra2026.Asistente;
 
 import tpgProgra2026.TableroDestino.ElementoDelUniverso;
 import tpgProgra2026.TableroDestino.Posicion;

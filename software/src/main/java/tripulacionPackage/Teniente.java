@@ -1,5 +1,5 @@
 
-package tpgProgra2026;
+package tripulacionPackage;
 
 /*
 * @pre  antiguedad >= 0

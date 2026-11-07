@@ -1,4 +1,4 @@
-package tpgProgra2026;
+package tripulacionPackage;
 /*
 * @pre  tripulante != null
 * @post getAntiguedad() == tripulante.getAntiguedad()
