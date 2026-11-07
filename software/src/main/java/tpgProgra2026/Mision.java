@@ -30,6 +30,10 @@ public abstract class Mision {
         this.ac = ac;
     }
 
+    protected Posicion calcularDestino() {
+        return ac.tablero.obtenerObjetivo();
+    }
+
     /**
      * @pre Todos los métodos que usan ac (Ejecuto_Mision, preparar, ejecutar, cerrar y EnergiaGanada) lanzarían NullPointerException si fuera nulo.
      * @post ejecuta en orden preparar, ejecutar, EnergiaGanad, evaluar y cerrar; deja registrado en la bitácora el cierre de la misión.
@@ -48,7 +52,6 @@ public abstract class Mision {
     public void preparar() {
         if (ac.alcanzaPara(getCostoCombustible(), getCostoEnergia(), getCostoDesgaste())) {
 
-            // 2. Cálculo de ruta (radar de largo alcance), todavía no entiendo como implementarlo creo que destino es una posición y ruta es un array list de posición
             destino = calcularDestino(); // Todavía sin implementar
             ruta = ac.calcularRuta(destino); // Todavía sin implementar
             preparada = true;
@@ -70,9 +73,9 @@ public abstract class Mision {
             while (ac.estaVivaNave() && !llegoAlDestino()) {
 
                 // Turno de la nave
-                ElementoDelUniverso elemento = tablero.inspeccionarPosicion(); // esto lo implementa tablero
+                ElementoDelUniverso elemento = ac.tablero.inspeccionarPosicion(); // esto lo implementa tablero
                 if (elemento != null) {
-                    Posicion act = tablero.getPosicionNave();// esto lo implementa tablero
+                    Posicion act = ac.tablero.getPosicionNave();// esto lo implementa tablero
                     ac.registrarEvento("La nave interactúa con " + elemento.getTipoElemento() + " en la posicion actual", "Encuentro");
                     elemento.interactuar(ac);
                 }
@@ -85,14 +88,14 @@ public abstract class Mision {
                 }
 
                 // Escaneo (radar de corto alcance) y planificación
-                ElementoDelUniverso[][] alrededores = ac.escanear();
+                ElementoDelUniverso[][] alrededores = ac.tablero.observarAlrededores();
                 ac.planificarMovimiento(alrededores);
 
                 // Consumo de combustible por turno
                 ac.consumirRecursos(0, 0, 0); // ¿Se gastaba combustible por cada salto?
 
-                // Turno del tablero
-                destino.avanzarTurno();
+                // Turno del destino
+                ac.destino.turnoDestino();
 
                 // Pausa con Thread después la implementamos
             }

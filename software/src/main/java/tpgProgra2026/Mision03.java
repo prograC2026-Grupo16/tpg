@@ -1,5 +1,7 @@
 package tpgProgra2026;
 
+import tpgProgra2026.TableroDestino.Posicion;
+
 /**
  * Variante de misión tipo 03: no otorga energía a la nave.
  *
@@ -23,6 +25,11 @@ public class Mision03 extends Mision{
     public void cerrar() {
         if (exito)
             ac.realizarMantenimiento();
+    }
+
+    @Override
+    protected Posicion calcularDestino() { // Porque misión 3 vuelve a base
+        return ac.getBase();
     }
 
     /**
