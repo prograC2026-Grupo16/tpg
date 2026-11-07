@@ -1,4 +1,4 @@
-package tpgProgra2026;
+package navesPackage;
 import java.util.ArrayList;
 import motorPackage.MotorWarp;
 import tpgProgra2026.Recursos;
@@ -13,9 +13,7 @@ public abstract class Nave {
     protected String nombre;
     protected Recursos recursos;
     protected MotorWarp motorWarp;
-    protected ArrayList<Tripulante> Tripulante;
-    protected MotorWarp motorwarp;
-    protected ArrayList<Tripulante> Tripulante = new ArrayList<>();
+    protected ArrayList<Tripulante> tripulacion;
     protected boolean destruida = false;
 
     /**
@@ -38,25 +36,23 @@ public abstract class Nave {
      * @post getTripulante().size() == tamanio anterior + 1
      */
     public void asignarTripulante(Tripulante t) {
-        Tripulante.add(t);
+        tripulacion.add(t);
     }
 
-    
-    // RECURSOS
-    public int getCombustible() {
-        return recursos.getCombustible();
     public boolean estaViva() {
         return !destruida;
     }
 
-    public void Destruir() {
+    public void destruir() {
         destruida = true;
     }
 
-    public boolean estaMotorDisponible() {
-        return motorwarp.estaMotorDisponible();
-    }
+    // RECURSOS
 
+    public int getCombustible() {
+        return recursos.getCombustible();
+    }
+    
     public int getEnergia() {
         return recursos.getEnergia();
     }
@@ -162,8 +158,8 @@ public abstract class Nave {
         return motorWarp;
     }
 
-    public ArrayList<Tripulante> getTripulante() {
-        return Tripulante;
+    public ArrayList<Tripulante> getTripulacion() {
+        return tripulacion;
     }
 
 }

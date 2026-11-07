@@ -182,30 +182,13 @@ public class Asistente {
     }
     */
 
-    public boolean requiereMantenimiento() {
-        return getRecursos().getDesgaste() >= LIMITE_DESGASTE;
-    }
-
-    /**
-     * @post !requiereMantenimiento() && getRecursos().getDesgaste() == 0
-     */
-    public void realizarMantenimiento() {
-        getRecursos().setDesgaste();
-    }
-
+    
     public boolean estaVivaNave(){
         return nave.estaViva();
     }
 
     public void destruirNave(){
-        nave.Destruir();
+        nave.destruir();
     }
 
-    public Recursos getRecursos() {
-        return nave.getRecursos();
-    }
-
-    public MotorWarp getMotorWarp() {
-        return nave.getMotorWarp();
-    }
 }

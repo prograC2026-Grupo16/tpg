@@ -1,4 +1,4 @@
-package tpgProgra2026;
+package misionesPackage;
 import tpgProgra2026.Asistente;
 
 import tpgProgra2026.TableroDestino.ElementoDelUniverso;
