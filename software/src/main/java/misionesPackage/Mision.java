@@ -1,4 +1,5 @@
-package tpgProgra2026;
+package misionesPackage;
+import tpgProgra2026.Asistente;
 
 /**
  * Clase abstracta que define una misión de la nave con el patrón Template Method: Ejecuto_Mision() fija el orden de los pasos (preparar, ejecutar, EnergiaGanada, evaluar y cerrar) y las subclases aportan la energía ganada y el identificador de la misión.

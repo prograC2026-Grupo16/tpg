@@ -15,8 +15,7 @@ public class EnWarp implements EstadoWarp{
 	
 	@Override
 	public void saltarWarp() {
-		// gastar 5 unidades de energía de la nave
-		if (motor.getNave().getRecursos().getEnergia() >= 5) {
+		if (motor.getNave().getEnergia() >= MotorWarp.COSTO_SALTO_LARGO) {
 			motor.realizarSaltoLargo();
 			motor.setEstado(new Enfriamiento(motor));
 		}

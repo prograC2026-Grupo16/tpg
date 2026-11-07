@@ -1,4 +1,4 @@
-package tpgProgra2026;
+package navesPackage;
 
 public class TipoNaveInvalidoException extends Exception {
 	public TipoNaveInvalidoException(String tipo) {

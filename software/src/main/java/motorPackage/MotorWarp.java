@@ -1,9 +1,10 @@
 package motorPackage;
-import tpgProgra2026.Nave;
+import navesPackage.Nave;
 
 public class MotorWarp {
 	private EstadoWarp estado;
 	private Nave nave;
+	public static final int COSTO_SALTO_CORTO = 2, COSTO_SALTO_LARGO = 5; // COSTO_SALTO_CORTO es de combustible, COSTO_SALTO_LARGO es de energía
 	
 	/**
 	 * Invariantes:
@@ -57,7 +58,6 @@ public class MotorWarp {
 
 	// transiciones 
 	public void saltar() {
-		// gastar 2 puntos de combustible
 		estado.saltar();
 	}
 	public void saltarWarp() {
@@ -65,16 +65,19 @@ public class MotorWarp {
 	}
 	
 	protected void realizarSaltoCorto() {
-		if (nave.getRecursos().getCombustible() >= 2) {
-//			nave.getRecursos().set
-			// TODO: Hacer el Salto
+		if (nave.getCombustible() >= COSTO_SALTO_CORTO) {
+			nave.usarCombustible(COSTO_SALTO_CORTO);
+			// TODO: Hacer el salto corto
 		}
-
 	}
 
+	/**
+	 * @pre nave.getEnergia() >= COSTO_SALTO_LARGO
+	 */
 	protected void realizarSaltoLargo() {
-		
-		// DO SOMETHING
+		assert nave.getEnergia() >= COSTO_SALTO_LARGO : "Se intentó hacer un salto warp sin los recursos necesarios";
+		nave.usarEnergia(COSTO_SALTO_LARGO);
+		// TODO: hacer el salto warp
 	}
 	
 }

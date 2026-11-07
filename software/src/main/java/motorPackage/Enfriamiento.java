@@ -2,6 +2,7 @@ package motorPackage;
 
 public class Enfriamiento implements EstadoWarp {
 	private MotorWarp motor;
+	public static final int DESGASTE_ENFRIAMIENTO = 3;
 	
 	public Enfriamiento(MotorWarp motor) {
 		this.motor = motor;
@@ -9,13 +10,14 @@ public class Enfriamiento implements EstadoWarp {
 	
 	@Override
 	public void saltar() {
+		motor.getNave().generarDesgaste(DESGASTE_ENFRIAMIENTO);
 		motor.realizarSaltoCorto();
 		motor.setEstado(new Disponible(motor));
 	}
 	
 	@Override
 	public void saltarWarp() {
-		// generar 3 puntos de desgaste en la nave
+		motor.getNave().generarDesgaste(DESGASTE_ENFRIAMIENTO);
 		motor.realizarSaltoCorto();
 		motor.setEstado(new Disponible(motor));
 	}

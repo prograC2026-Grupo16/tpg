@@ -1,5 +1,8 @@
 package tpgProgra2026;
 import java.util.ArrayList;
+import navesPackage.Nave;
+import misionesPackage.Mision;
+import motorPackage.MotorWarp;
 
 /**
  * @invariante nave != null && misiones != null && bitacora != null
@@ -9,15 +12,15 @@ public class Asistente {
 
     protected Nave nave;
     protected ArrayList<Evento> bitacora = new ArrayList<>();
-    protected Mision misiones;
+    protected Mision mision;
 
     /**
      * @pre  nave != null && misiones != null
      * @post la bitacora esta vacia
      */
-    public Asistente(Nave nave, Mision misiones) {
+    public Asistente(Nave nave, Mision mision) {
         this.nave = nave;
-        this.misiones = misiones;
+        this.mision = mision;
     }
 
     /**
@@ -28,61 +31,150 @@ public class Asistente {
         bitacora.add(new Evento(mensaje, tipo));
     }
 
-    public boolean estaMotorDisponible() {
-        return getMotorWarp().estaMotorDisponible();
+    
+    
+    // RECURSOS
+
+    
+    public boolean requiereMantenimiento() {
+        return nave.getDesgaste() >= LIMITE_DESGASTE;
     }
 
+    // SACARLO ??
+    /**
+     * @post !requiereMantenimiento() && getRecursos().getDesgaste() == 0
+     */
+    public void realizarMantenimiento() {
+        reiniciarDesgaste();
+    }
+
+    public int getCombustible() {
+        return nave.getCombustible();
+    }
+
+    public int getEnergia() {
+        return nave.getEnergia();
+    }
+
+    public int getDesgaste() {
+        return nave.getDesgaste();
+    }
+
+    
+    
+    // REPONER RECURSOS
+    
     /**
      * @pre  cantidad >= 0
-     * @post getRecursos().getCombustible() == combustible anterior + cantidad
+     * @param cantidad de combustible a reponer
+     * @post el combustible queda agregado en cantidad, o en su valor máximo
      */
     public void cargarCombustible(int cantidad) {
-        getRecursos().setCombustible(cantidad);
+    	nave.cargarCombustible(cantidad);
     }
 
     /**
      * @pre  cantidad >= 0
-     * @post getRecursos().getEnergia() == energia anterior + cantidad
+     * @param cantidad de energía a reponer
+     * @post la energía queda agregada en cantidad, o en su valor máximo
      */
     public void cargarEnergia(int cantidad) {
-        getRecursos().setEnergia(cantidad);
+    	nave.cargarEnergia(cantidad);
     }
 
+    /**
+     * @pre  cantidad >= 0
+     * @param cantidad de desgaste a quitar
+     * @post el desgaste queda disminuido en cantidad, o en su valor mínimo
+     */
+    public void quitarDesgaste(int cantidad) {
+    	nave.quitarDesgaste(cantidad);
+    }
+
+    
+    
+    // USO DE RECURSOS
+    
+    /**
+     * @pre  cantidad >= 0
+     * @param cantidad de combustible a usar
+     * @post el combustible queda disminuido en cantidad, o en su valor mínimo
+     */
+    public void usarCombustible(int cantidad) {
+    	nave.usarCombustible(cantidad);
+    }
+    
+    /**
+     * @pre  cantidad >= 0
+     * @param cantidad de energia a usar
+     * @post la energía queda disminuida en cantidad, o en su valor mínimo
+     */
+    public void usarEnergia(int cantidad) {
+    	nave.usarEnergia(cantidad);
+    }
+        
+    /**
+     * @pre cantidad >= 0
+     * @param cantidad de desgaste a generar
+     * @post el desgaste queda agregado en cantidad, o en su valor máximo
+     */
+    public void generarDesgaste(int cantidad) {
+    	nave.generarDesgaste(cantidad);
+    }
+
+    
+    /**
+     * Reinicia el combustible.
+     * @post getcombustible() == 100
+     */
+    public void reiniciarCombustible() {
+    	nave.reiniciarCombustible();
+    }
+    
+    /**
+     * Reinicia la energía.
+     * @post getEnergia() == 100
+     */
+    public void reiniciarEnergia() {
+    	nave.reiniciarEnergia();
+    }
+    
+    /**
+     * Reinicia el desgaste (mantenimiento).
+     * @post getDesgaste() == 0
+     */
+    public void reiniciarDesgaste() {
+    	nave.reiniciarDesgaste();
+    }
+    
+    
+    // SACARLO ??
+    public MotorWarp getMotorWarp() {
+        return nave.getMotorWarp();
+    }
+    
+    /* yo esto lo sacaría ~ Mauro
     /**
      * @pre  combustible >= 0 && cantidad >= 0 && desgaste >= 0
      * @pre  alcanzaPara(combustible, cantidad, desgaste)
      * @post se descontaron combustible y energia, y se sumo el desgaste
      */
+    /*
     public void consumirRecursos(int combustible, int cantidad, int desgaste) {
         getRecursos().gastarRecursos(combustible, cantidad, desgaste);
     }
+    */
 
+    /* yo esto lo sacaría ~ Mauro
     /**
      * @pre  combustible >= 0 && energia >= 0 && desgaste >= 0
      * @post no modifica el estado de la nave
      */
+    /*
     public boolean alcanzaPara(int combustible, int energia, int desgaste) {
         return getRecursos().getCombustible() >= combustible
             && getRecursos().getEnergia() >= energia
             && (getRecursos().getDesgaste() + desgaste) <= LIMITE_DESGASTE;
     }
-
-    public boolean requiereMantenimiento() {
-        return getRecursos().getDesgaste() >= LIMITE_DESGASTE;
-    }
-
-    /**
-     * @post !requiereMantenimiento() && getRecursos().getDesgaste() == 0
-     */
-    public void realizarMantenimiento() {
-        getRecursos().setDesgaste();
-    }
-
-    public Recursos getRecursos() {
-        return nave.getRecursos();
-    }
-
-    public MotorWarp getMotorWarp() {
-        return nave.getMotorWarp();
-    }
+    */
 }
