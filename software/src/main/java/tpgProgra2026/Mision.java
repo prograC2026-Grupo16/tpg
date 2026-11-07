@@ -1,4 +1,4 @@
-package misionesPackage;
+package tpgProgra2026;
 import tpgProgra2026.Asistente;
 
 /**
