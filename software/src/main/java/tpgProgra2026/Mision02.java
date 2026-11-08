@@ -13,6 +13,7 @@ public class Mision02 extends Mision{
     private final int COSTO_ENERGIA = 10;
     private final int COSTO_DESGASTE = 4;
     private final int COSTO_COMBUSTIBLE = 4;
+    private final Random random = new Random();
     /**
      * @pre el Asistente ac recibido no es null y está inicializado.
      * @post la misión queda asociada a ac y sin preparar.

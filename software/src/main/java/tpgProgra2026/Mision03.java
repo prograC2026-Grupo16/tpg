@@ -13,6 +13,7 @@ public class Mision03 extends Mision{
     private final int COSTO_ENERGIA = 0;
     private final int COSTO_DESGASTE = 4;
     private final int COSTO_COMBUSTIBLE = 4;
+    private final int MAXIMO = 100;
     /**
      * @pre el Asistente ac recibido no es null y está inicializado.
      * @post la misión queda asociada a ac y sin preparar.
@@ -23,8 +24,16 @@ public class Mision03 extends Mision{
 
     @Override
     public void cerrar() {
-        if (exito)
-            ac.realizarMantenimiento();
+        if (exito) {
+            Recursos r = ac.getRecursos();
+            int faltaCombustible = Math.max(0, MAXIMO - r.getCombustible());
+            int faltaEnergia = Math.max(0, MAXIMO - r.getEnergia());
+
+            ac.cargarCombustible(faltaCombustible);
+            ac.cargarEnergia(faltaEnergia);
+            ac.realizarMantenimiento(); // desgaste a 0
+            ac.registrarEvento("Mision 03 cerrada: +" + faltaCombustible + " combustible, +" + faltaEnergia + " energia, desgaste en 0", "Misión");
+        }
     }
 
     @Override
