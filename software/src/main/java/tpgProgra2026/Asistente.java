@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import navesPackage.Nave;
 import misionesPackage.Mision;
 import motorPackage.MotorWarp;
+import tpgProgra2026.TableroDestino.*;
 
 /**
  * @invariante nave != null && misiones != null && bitacora != null
@@ -13,6 +14,8 @@ public class Asistente {
     protected Nave nave;
     protected ArrayList<Evento> bitacora = new ArrayList<>();
     protected Mision mision;
+    protected Tablero tablero = null;
+    protected Destino destino = null;
 
     /**
      * @pre  nave != null && misiones != null
@@ -181,6 +184,29 @@ public class Asistente {
             && (getRecursos().getDesgaste() + desgaste) <= LIMITE_DESGASTE;
     }
     */
+
+    public ArrayList<Posicion> calcularRuta(Posicion destino) {
+        ArrayList<Posicion> ruta = new ArrayList<>();
+        Posicion actual = tablero.getPosicionNave();
+        int x = actual.getX();
+        int y = actual.getY();
+        while (x != destino.getX() || y != destino.getY()) {
+            x += Integer.signum(destino.getX() - x);   // -1, 0 o +1
+            y += Integer.signum(destino.getY() - y);   // Integer.signum devuelve -1, 0 o 1 según el signo del número.
+            ruta.add(new Posicion(x, y)); // Por eso la nave avanza en diagonal mientras le falte distancia en las dos direcciones, y en línea recta cuando solo le falta en una.
+        }
+        return ruta;
+    }
+
+    public void setTableroyDestino(int dimension_x, int dimension_y) throws CantidadDeElementosSuperaCasillaException, DimensionesDeTableroInconsistentesException {
+        ArrayList<ElementoDelUniverso> elementos = new ArrayList<>();
+        elementos.add(new Asteroide());            // uno por cada cosa que quieras en el mapa
+        elementos.add(new EstacionesDeCarga());
+        elementos.add(new naveEnemiga()); // Todavia no implemento
+
+        Tablero tablero = new Tablero(20, 20, elementos);   // filas, columnas, lista
+        Destino destino = new Destino(tablero);
+    }
 
     
     public boolean estaVivaNave(){

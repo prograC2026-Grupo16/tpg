@@ -1,5 +1,6 @@
-package tpgProgra2026;
+package misionesPackage;
 
+import tpgProgra2026.Asistente;
 import tpgProgra2026.TableroDestino.Posicion;
 
 /**
@@ -8,7 +9,7 @@ import tpgProgra2026.TableroDestino.Posicion;
  * @inv Esta misión nunca modifica la energía de la nave.
  * @inv Se conservan los invariantes de Mision.
  */
-public class Mision03 extends Mision{
+public class Mision03 extends Mision {
 //    private final int ENERGIA_GANADA = 0;
     private final int COSTO_ENERGIA = 0;
     private final int COSTO_DESGASTE = 4;

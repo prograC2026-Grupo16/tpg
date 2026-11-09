@@ -1,4 +1,6 @@
-package tpgProgra2026;
+package misionesPackage;
+
+import tpgProgra2026.Asistente;
 
 import java.util.Random;
 
