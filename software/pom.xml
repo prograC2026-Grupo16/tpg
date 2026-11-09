@@ -3,7 +3,14 @@
   <groupId>grupo16</groupId>
   <artifactId>tpgProgra2026</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.46.1.0</version>
+        </dependency>
+    </dependencies>
+    <properties>
   	<maven.compiler.source>8</maven.compiler.source>
   	<maven.compiler.target>8</maven.compiler.target>
   </properties>

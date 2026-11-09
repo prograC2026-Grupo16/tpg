@@ -201,7 +201,7 @@ public class Asistente {
         ArrayList<ElementoDelUniverso> elementos = new ArrayList<>();
         elementos.add(new Asteroide());            // uno por cada cosa que quieras en el mapa
         elementos.add(new EstacionesDeCarga());
-        elementos.add(new naveEnemiga()); // Todavia no implemento
+        //elementos.add(new naveEnemiga()); // Todavia no implemento
 
         Tablero tablero = new Tablero(20, 20, elementos);   // filas, columnas, lista
         Destino destino = new Destino(tablero);
