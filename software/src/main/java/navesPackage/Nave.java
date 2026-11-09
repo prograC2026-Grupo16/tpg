@@ -30,6 +30,14 @@ public abstract class Nave {
         this.recursos = recursos;
     }
 
+    // DOUBLE DISPATCH
+    
+    public abstract int esVencidoPorExploradora();
+    public abstract int esVencidoPorCarguera();
+    public abstract int esVencidoPorCombate();
+    
+    
+    
     /**
      * @pre  t != null && !getTripulante().contains(t)
      * @post getTripulante().contains(t)

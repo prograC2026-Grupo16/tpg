@@ -8,5 +8,9 @@ public class Nave_Carguero extends Nave{
         super(id, nombre, new Recursos(COMBUSTIBLE_INICIAL, ENERGIA_INICIAL, DESGASTE_INICIAL));
     }
     
+    // DOUBLE DISPATCH    
+    public int esVencidoPorExploradora() { return 1; }
+    public int esVencidoPorCarguera() { return 0;	}
+    public int esVencidoPorCombate() { return -1; }
     
 }
