@@ -12,6 +12,7 @@ public abstract class Nave {
     protected String id;
     protected String nombre;
     protected Recursos recursos;
+    protected int gemas;
     protected MotorWarp motorWarp;
     protected ArrayList<Tripulante> tripulacion;
     protected boolean destruida = false;
@@ -28,6 +29,7 @@ public abstract class Nave {
         this.nombre = nombre;
         this.motorWarp = new MotorWarp(this);
         this.recursos = recursos;
+        this.gemas = 0;
     }
 
     /**
@@ -61,6 +63,10 @@ public abstract class Nave {
         return recursos.getDesgaste();
     }
 
+    public int getGemas() {
+        return gemas;
+    }
+
     // REPONER RECURSOS
     /**
      * @pre  cantidad >= 0
@@ -87,6 +93,10 @@ public abstract class Nave {
      */
     public void quitarDesgaste(int cantidad) {
     	recursos.quitarDesgaste(cantidad);
+    }
+
+    public void cargarGemas(int cantidad) {
+        gemas += cantidad;
     }
     
     // USO DE RECURSOS

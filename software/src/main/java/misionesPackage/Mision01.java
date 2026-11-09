@@ -1,8 +1,7 @@
 package misionesPackage;
 
-
-
 import tpgProgra2026.Asistente;
+import tpgProgra2026.Recursos;
 
 import java.util.Random;
 
@@ -32,8 +31,9 @@ public class Mision01 extends Mision {
     @Override
     public void cerrar() {
         if (exito) {
-            ac.consumirRecursos(combustibleAEntregar, energiaAEntregar, 0);
-            ac.registrarEvento("Mision 01 cerrada: se entregaron " + combustibleAEntregar + " de combustible y " + energiaAEntregar + " de energia", "Misión");
+            ac.usarCombustible(combustibleAEntregar);
+            ac.usarEnergia(energiaAEntregar);
+            ac.registrarEvento("Misión 01 cerrada: se entregaron " + combustibleAEntregar + " de combustible y " + energiaAEntregar + " de energia", "Misión");
         }
     }
 
@@ -46,8 +46,7 @@ public class Mision01 extends Mision {
         Random random = new Random();
         combustibleAEntregar = random.nextInt(51); // 0 a 50
         energiaAEntregar = random.nextInt(51);
-        Recursos r = ac.getRecursos();
-        return r.getCombustible() > combustibleAEntregar && r.getEnergia() > energiaAEntregar;
+        return ac.getCombustible() > combustibleAEntregar && ac.getEnergia() > energiaAEntregar;
     }
 
     /**

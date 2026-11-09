@@ -32,14 +32,14 @@ public abstract class Mision {
     }
 
     protected Posicion calcularDestino() {
-        return ac.tablero.obtenerObjetivo();
+        return ac.getTablero().obtenerObjetivo();
     }
 
     public int planificarMovimiento(ElementoDelUniverso[][] alrededores, ArrayList<Posicion> ruta) {
         if (ruta.isEmpty()) {
             return 0;
         }
-        Posicion actual = ac.tablero.getPosicionNave();
+        Posicion actual = ac.getTablero().getPosicionNave();
         Posicion siguiente = ruta.get(0);
 
         // El radar es una matriz 3x3 con la nave en [1][1]: la casilla siguiente queda en [1 + dx][1 + dy]
@@ -47,17 +47,18 @@ public abstract class Mision {
         int dy = siguiente.getY() - actual.getY();
         boolean hayObstaculo = alrededores[1 + dx][1 + dy] != null;
 
-        if (hayObstaculo && ruta.size() >= 2 && ac.estaMotorDisponible()) {
+        //Logica Warp preguntamos en clase
+        if (hayObstaculo && ruta.size() >= 2) {
             // SALTO WARP (avanza 2 casilleros y esquiva el obstáculo) (Consultar Mauro).
-            ac.tablero.moverNave(ruta.get(1));
-            ac.registrarEvento("Obstaculo detectado: salto warp", "Movimiento");
+            ac.getTablero().moverNave(ruta.get(1));
+            ac.registrarEvento("Obstáculo detectado: salto warp", "Movimiento");
             return 2;
         }
 
         // SALTO NORMAL (avanza 1 casillero)
-        ac.consumirRecursos(2, 0, 0); // cada salto simple consume 2 de combustible
+        ac.usarCombustible(2); // cada salto simple consume 2 de combustible
         gastadoCombustible += 2;
-        ac.tablero.moverNave(siguiente);
+        ac.getTablero().moverNave(siguiente);
         ac.registrarEvento("Salto normal a", "Movimiento");
         return 1;
     }
@@ -85,7 +86,7 @@ public abstract class Mision {
             destino = calcularDestino(); // Todavía sin implementar
             ruta = ac.calcularRuta(destino); // Todavía sin implementar
             preparada = true;
-            ac.registrarEvento("Mision " + getTipomision() + " preparada: ruta de " + ruta.size() + " pasos hacia (" + destino.getX() + "," + destino.getY() + ")", "Mision");
+            ac.registrarEvento("Misión " + getTipomision() + " preparada: ruta de " + ruta.size() + " pasos hacia (" + destino.getX() + "," + destino.getY() + ")", "Mision");
 
         }
     }
@@ -95,7 +96,9 @@ public abstract class Mision {
      */
     public void ejecutar() {
         if (preparada) {
-            ac.consumirRecursos(getCostoCombustible(), getCostoEnergia(), getCostoDesgaste());
+            ac.usarCombustible(getCostoEnergia());
+            ac.usarEnergia(getCostoCombustible());
+            ac.generarDesgaste(getCostoDesgaste());
             gastadoCombustible = getCostoCombustible();
             gastadoEnergia = getCostoEnergia();
             gastadoDesgaste = getCostoDesgaste();
@@ -103,29 +106,29 @@ public abstract class Mision {
             while (ac.estaVivaNave() && !llegoAlDestino()) {
 
                 // Turno de la nave
-                ElementoDelUniverso elemento = ac.tablero.inspeccionarPosicion();
+                ElementoDelUniverso elemento = ac.getTablero().inspeccionarPosicion();
                 if (elemento != null) {
-                    Posicion act = ac.tablero.getPosicionNave();
-                    ac.registrarEvento("La nave interactúa con " + elemento.getTipoElemento() + " en la posicion actual", "Encuentro");
+                    Posicion act = ac.getTablero().getPosicionNave();
+                    ac.registrarEvento("La nave interactúa con " + elemento.getTipoElemento() + " en la posición actual", "Encuentro");
                     elemento.interactuar(ac);
                 }
 
                 // si la nave es destruida
                 if(!ac.estaVivaNave()) {
-                    ac.registrarEvento("La nave ha sido destruida. ", "Destruccion");
+                    ac.registrarEvento("La nave ha sido destruida. ", "Destrucción");
                     exito = false;
                     break;
                 }
 
                 // Escaneo (radar de corto alcance) y planificación
-                ElementoDelUniverso[][] alrededores = ac.tablero.observarAlrededores();
+                ElementoDelUniverso[][] alrededores = ac.getTablero().observarAlrededores();
                 int casilleros = planificarMovimiento(alrededores, ruta); // Podemos hacer que el metodo sea de asistente, después vemos
                 for (int i = 0; i < casilleros; i++) {
                     ruta.remove(0); // ya recorrí esos pasos de la ruta
                 }
 
                 // Turno del destino
-                ac.destino.turnoDestino();
+                ac.getDestino().turnoDestino();
 
                 try {
                     Thread.sleep(300);
@@ -156,7 +159,7 @@ public abstract class Mision {
 
             ac.registrarEvento("Cantidad de recursos gastados: " + gastadoCombustible + " combustible, +" + gastadoEnergia + " energia, +" + gastadoDesgaste + " Desgaste.", "Mision");
         }else
-             ac.registrarEvento("Mision " + getTipomision() + " Fallida (No hay recursos disponibles)", "Misión");
+             ac.registrarEvento("Misión " + getTipomision() + " Fallida (No hay recursos disponibles)", "Misión");
 
     }
 
@@ -165,7 +168,7 @@ public abstract class Mision {
      * @post true si la nave está parada exactamente en la posición de destino.
      */
     private boolean llegoAlDestino() {
-        Posicion actual = ac.tablero.getPosicionNave();
+        Posicion actual = ac.getTablero().getPosicionNave();
         return actual.getX() == destino.getX() && actual.getY() == destino.getY();
     }
 

@@ -16,7 +16,7 @@ public class Asistente {
     protected Mision mision;
     protected Tablero tablero = null;
     protected Destino destino = null;
-
+    protected Posicion base;
     /**
      * @pre  nave != null && misiones != null
      * @post la bitacora esta vacia
@@ -177,13 +177,12 @@ public class Asistente {
      * @pre  combustible >= 0 && energia >= 0 && desgaste >= 0
      * @post no modifica el estado de la nave
      */
-    /*
+
     public boolean alcanzaPara(int combustible, int energia, int desgaste) {
-        return getRecursos().getCombustible() >= combustible
-            && getRecursos().getEnergia() >= energia
-            && (getRecursos().getDesgaste() + desgaste) <= LIMITE_DESGASTE;
+        return nave.getCombustible() >= combustible
+            && nave.getEnergia() >= energia
+            && (nave.getDesgaste() + desgaste) <= LIMITE_DESGASTE;
     }
-    */
 
     public ArrayList<Posicion> calcularRuta(Posicion destino) {
         ArrayList<Posicion> ruta = new ArrayList<>();
@@ -208,7 +207,30 @@ public class Asistente {
         Destino destino = new Destino(tablero);
     }
 
-    
+    public Posicion getBase(){
+        return base;
+    }
+
+    public void setBase(){
+        base = tablero.getPosicionNave();
+    }
+
+    public Tablero getTablero() {
+        return tablero;
+    }
+
+    public Destino getDestino(){
+        return destino;
+    }
+
+    public int getGemas(){
+        return nave.getGemas();
+    }
+
+    public void cargarGemas(int cantidad){
+        nave.cargarGemas(cantidad);
+    }
+
     public boolean estaVivaNave(){
         return nave.estaViva();
     }

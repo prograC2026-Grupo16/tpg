@@ -1,6 +1,7 @@
 package misionesPackage;
 
 import tpgProgra2026.Asistente;
+import tpgProgra2026.Recursos;
 import tpgProgra2026.TableroDestino.Posicion;
 
 /**
@@ -26,9 +27,8 @@ public class Mision03 extends Mision {
     @Override
     public void cerrar() {
         if (exito) {
-            Recursos r = ac.getRecursos();
-            int faltaCombustible = Math.max(0, MAXIMO - r.getCombustible());
-            int faltaEnergia = Math.max(0, MAXIMO - r.getEnergia());
+            int faltaCombustible = Math.max(0, MAXIMO - ac.getCombustible());
+            int faltaEnergia = Math.max(0, MAXIMO - ac.getEnergia());
 
             ac.cargarCombustible(faltaCombustible);
             ac.cargarEnergia(faltaEnergia);
