@@ -10,13 +10,13 @@ public abstract class Fabricacion_Nave {
      */
     public Nave construirNave(String id, String nombre, String tipo) throws TipoNaveInvalidoException {
 
-        if (tipo.toLowerCase().equals("Exploradora"))
+        if (tipo.toLowerCase().equals("exploradora"))
             return new Nave_Exploradora(id, nombre);
 
-        if (tipo.toLowerCase().equals("Carguero"))
+        if (tipo.toLowerCase().equals("carguero"))
             return new Nave_Carguero(id, nombre);
 
-        if (tipo.toLowerCase().equals("Combate"))
+        if (tipo.toLowerCase().equals("combate"))
             return new Nave_Combate(id, nombre);
 
         throw new TipoNaveInvalidoException(tipo);

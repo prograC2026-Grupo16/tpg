@@ -127,7 +127,7 @@ public class Recursos {
      * @post getcombustible() == 100
      */
     public void reiniciarCombustible() {
-        desgaste = MAXIMO_COMBUSTIBLE;
+        combustible = MAXIMO_COMBUSTIBLE;
     }
     
     /**
@@ -135,7 +135,7 @@ public class Recursos {
      * @post getEnergia() == 100
      */
     public void reiniciarEnergia() {
-        desgaste = MAXIMO_ENERGIA;
+        energia = MAXIMO_ENERGIA;
     }
     
     /* yo esto lo quitaría ~ Mauro

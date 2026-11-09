@@ -1,4 +1,3 @@
-
 package tripulacionPackage;
 
 /*
@@ -26,7 +25,7 @@ public class Capitan extends Tripulante{
     //@post retorna un String no nulo que incluye id, antiguedad y cargo
     public String descripcion(){
         return " El tripulante " + getId() + " tiene una antiguedad de " + getAntiguedad()
-                + " Con un cargo de " + getCargo();
+                + " con un cargo de " + getCargo();
     }
         
     
