@@ -32,6 +32,14 @@ public abstract class Nave {
         this.gemas = 0;
     }
 
+    // DOUBLE DISPATCH
+    
+    public abstract int esVencidoPorExploradora();
+    public abstract int esVencidoPorCarguera();
+    public abstract int esVencidoPorCombate();
+    
+    
+    
     /**
      * @pre  t != null && !getTripulante().contains(t)
      * @post getTripulante().contains(t)

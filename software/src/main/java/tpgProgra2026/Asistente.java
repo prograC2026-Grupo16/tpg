@@ -25,7 +25,14 @@ public class Asistente {
         this.nave = nave;
         this.mision = mision;
     }
-
+    
+    // DOUBLE DISPATCH
+    
+    public int esVencidoPorExploradora() { return nave.esVencidoPorExploradora(); }
+    public int esVencidoPorCarguera() { return nave.esVencidoPorCarguera(); }
+    public int esVencidoPorCombate() { return nave.esVencidoPorCombate(); }
+    
+    
     /**
      * @pre  mensaje != null && tipo != null
      * @post bitacora.size() == tamanio anterior + 1
