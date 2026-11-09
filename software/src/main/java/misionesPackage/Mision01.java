@@ -1,5 +1,6 @@
-package misionesPackage;
-import tpgProgra2026.Asistente;
+package tpgProgra2026;
+
+import java.util.Random;
 
 /**
  * Variante de misión tipo 01: al completarse otorga energía a la nave.
@@ -10,6 +11,11 @@ import tpgProgra2026.Asistente;
 public class Mision01 extends Mision {
 
     private final int ENERGIA_GANADA = 5;
+    private final int COSTO_ENERGIA = 5;
+    private final int COSTO_DESGASTE = 4;
+    private final int COSTO_COMBUSTIBLE = 4;
+    private int combustibleAEntregar = 0;
+    private int energiaAEntregar = 0;
 
     /**
      * @pre el Asistente ac recibido no es null y está inicializado.
@@ -19,14 +25,25 @@ public class Mision01 extends Mision {
         super(ac);
     }
 
+    @Override
+    public void cerrar() {
+        if (exito) {
+            ac.consumirRecursos(combustibleAEntregar, energiaAEntregar, 0);
+            ac.registrarEvento("Mision 01 cerrada: se entregaron " + combustibleAEntregar + " de combustible y " + energiaAEntregar + " de energia", "Misión");
+        }
+    }
+
     /**
-     * @pre se invoca solo después de una ejecución exitosa de la misión.
-     * @pre Como consecuencia, EnergiaGanada() lanzaría NullPointerException si ac fuera nulo.
-     * @post la energía de la nave aumenta en ENERGIA_GANADA, delegando en ac.cargarEnergia.
+     * @post true si, al llegar, a la nave le sobra lo que debe entregar. Es estrictamente mayor
+     *       porque con combustible o energía en 0 la nave muere.
      */
     @Override
-    public void EnergiaGanada() {
-        ac.cargarEnergia(ENERGIA_GANADA);
+    protected boolean puedeCumplirEnDestino() {
+        Random random = new Random();
+        combustibleAEntregar = random.nextInt(51); // 0 a 50
+        energiaAEntregar = random.nextInt(51);
+        Recursos r = ac.getRecursos();
+        return r.getCombustible() > combustibleAEntregar && r.getEnergia() > energiaAEntregar;
     }
 
     /**
@@ -35,6 +52,23 @@ public class Mision01 extends Mision {
     @Override
     public String getTipomision() {
         return "01";
+    }
+
+
+
+    @Override
+    public int  getCostoCombustible() {
+        return COSTO_COMBUSTIBLE;
+    }
+
+    @Override
+    public int getCostoEnergia() {
+        return COSTO_ENERGIA;
+    }
+
+    @Override
+    public int getCostoDesgaste() {
+        return COSTO_DESGASTE;
     }
 
 }
