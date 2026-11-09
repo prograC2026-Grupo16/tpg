@@ -1,4 +1,3 @@
-
 package tripulacionPackage;
 
 /*
@@ -26,8 +25,8 @@ public class Teniente extends Tripulante{
     // @post retorna un String no nulo que incluye id, antiguedad y cargo
     @Override
     public String descripcion(){
-        return " El tripulante " + getId() + "tiene una antiguedad de " + getAntiguedad()
-                + "Con un cargo de " + getCargo();        
+        return " El tripulante " + getId() + " tiene una antiguedad de " + getAntiguedad()
+                + " con un cargo de " + getCargo();        
     }
     
     
