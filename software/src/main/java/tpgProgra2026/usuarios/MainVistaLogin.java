@@ -18,12 +18,6 @@ public class MainVistaLogin
             modelo.registrar("Ana", "1234");
             modelo.registrar("pablo", "123");
             modelo.registrar("matias", "12");
-            // Listener de prueba: reemplaza al controlador
-            vista.setActionListener(e -> {
-               
-                System.out.println("Nombre: " + vista.getNombre());
-                System.out.println("Contra: " + vista.getContra());
-            });
             
             JFrame frame = new JFrame("Prueba - Login");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

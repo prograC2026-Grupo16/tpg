@@ -7,11 +7,9 @@ package tripulacionPackage;
 * @post getSueldo() == tripulante.getSueldo() + 18
 */
 public class DecoratorMarciano extends Decorator{
-        public String origen;
-    
+	
     public DecoratorMarciano( Tripulante tripulante ){
         super(tripulante);
-        this.origen =   "Marciano";
     }
     @Override
     //@post retorna el mismo cargo que el tripulante decorado
@@ -19,8 +17,9 @@ public class DecoratorMarciano extends Decorator{
         return tripulante.getCargo();
     }
    //@post retorna "Marciano"
+    @Override
     public String getOrigen(){
-        return origen;
+        return "Marciano";
     }
     @Override
     //@post retorna tripulante.getSueldo() + 18

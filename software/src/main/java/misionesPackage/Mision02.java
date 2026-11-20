@@ -11,7 +11,6 @@ import java.util.Random;
  * @inv Se conservan los invariantes de Mision.
  */
 public class Mision02 extends Mision{
-    private final int ENERGIA_GANADA = 5;
     private final int COSTO_ENERGIA = 10;
     private final int COSTO_DESGASTE = 4;
     private final int COSTO_COMBUSTIBLE = 4;

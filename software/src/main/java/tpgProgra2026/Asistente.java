@@ -9,7 +9,7 @@ import tpgProgra2026.TableroDestino.*;
  * @invariante nave != null && misiones != null && bitacora != null
  */
 public class Asistente {
-    private static final int LIMITE_DESGASTE = 80;
+    private static final int LIMITE_DESGASTE = 100;
 
     protected Nave nave;
     protected ArrayList<Evento> bitacora = new ArrayList<>();
@@ -21,9 +21,8 @@ public class Asistente {
      * @pre  nave != null && misiones != null
      * @post la bitacora esta vacia
      */
-    public Asistente(Nave nave, Mision mision) {
+    public Asistente(Nave nave) {
         this.nave = nave;
-        this.mision = mision;
     }
     
     // DOUBLE DISPATCH
@@ -41,7 +40,9 @@ public class Asistente {
         bitacora.add(new Evento(mensaje, tipo));
     }
 
-    
+    public ArrayList<Evento> getBitacora(){
+    	return bitacora;
+    }
     
     // RECURSOS
 

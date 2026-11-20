@@ -1,7 +1,7 @@
 package misionesPackage;
 
 import tpgProgra2026.Asistente;
-import tpgProgra2026.Recursos;
+
 
 import java.util.Random;
 
@@ -13,7 +13,6 @@ import java.util.Random;
  */
 public class Mision01 extends Mision {
 
-    private final int ENERGIA_GANADA = 5;
     private final int COSTO_ENERGIA = 5;
     private final int COSTO_DESGASTE = 4;
     private final int COSTO_COMBUSTIBLE = 4;

@@ -8,15 +8,14 @@ package tripulacionPackage;
 */
 
 public class DecoratorTerricola extends Decorator {
-    public String origen;
     
     public DecoratorTerricola( Tripulante tripulante){
         super(tripulante);
-        this.origen =   "Terricola";
     }
     //@post retorna "Terricola"
+    @Override
     public String getOrigen(){
-        return origen;
+        return "Terrícola";
     }
     @Override
     //@post retorna el mismo cargo que el tripulante decorado

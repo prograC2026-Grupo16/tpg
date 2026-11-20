@@ -18,28 +18,31 @@ implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            boolean valido = this.modelo.login(this.vista.getNombre(), this.vista.getContra());
             switch (e.getActionCommand()) {
                 case "INGRESAR": {
+                    boolean valido = this.modelo.login(this.vista.getNombre(), this.vista.getContra());
                     if (valido) {
                         System.out.println("Ingreso un usuario existente");
                         //Aca deberia ingresar a la tabla o para registrar un usuario
                         break;
                     }
                     System.out.println("Usuario no encontrado");
-                    this.vista.getTextNombre().setText("Intento Fallido");
                 }
                 case "CANCELAR": {
                     //Limpia los campos 
+                	vista.limpiarCampos();
                     break;
                 }
                 case "REGISTRAR":{
-                    if (this.modelo.registrar(this.vista.getNombre(), this.vista.getContra())) {
-                        System.out.println("Usuario registrado");
-                    } else {
-                        System.out.println("El usuario ya existe");
-                    }
-                    break;
+                	if (this.vista.getNombre() == "" || this.vista.getContra() == "")
+                        System.out.println("Escribí imbécil");
+                	else {
+                		if (this.modelo.registrar(this.vista.getNombre(), this.vista.getContra())) {
+                			System.out.println("Usuario registrado");
+                		} else {
+                			System.out.println("El usuario ya existe");
+                		}
+                	}
                 }
             }
         }

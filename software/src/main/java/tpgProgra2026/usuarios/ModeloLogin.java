@@ -11,7 +11,7 @@ public class ModeloLogin {
     }
 
     public boolean registrar(String nombre, String contra) throws DaoException {
-        if (this.dao.existe(nombre)) {
+    	if (this.dao.existe(nombre)) {
             return false;
         }
         UsuarioDTO dto = new UsuarioDTO(nombre, contra);

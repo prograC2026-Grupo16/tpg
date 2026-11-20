@@ -30,6 +30,7 @@ public abstract class Nave {
         this.motorWarp = new MotorWarp(this);
         this.recursos = recursos;
         this.gemas = 0;
+        this.tripulacion = new ArrayList<>();
     }
 
     // DOUBLE DISPATCH

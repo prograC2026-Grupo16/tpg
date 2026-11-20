@@ -36,7 +36,7 @@ public abstract class Mision {
         return ac.getTablero().obtenerObjetivo();
     }
 
-    public int planificarMovimiento(ElementoDelUniverso[][] alrededores, ArrayList<Posicion> ruta) {
+    protected int planificarMovimiento(ElementoDelUniverso[][] alrededores, ArrayList<Posicion> ruta) {
         if (ruta.isEmpty()) {
             return 0;
         }
@@ -87,7 +87,7 @@ public abstract class Mision {
     /**
      * @post preparada es true si y solo si hay recursos suficientes y el motor está disponible (incluso si una ejecución anterior la había dejado en true); registra exactamente un evento y no consume recursos.
      */
-    public void preparar() {
+    protected void preparar() {
         preparada = false;
         exito = false;
         if (ac.alcanzaPara(getCostoCombustible(), getCostoEnergia(), getCostoDesgaste())) {
@@ -103,7 +103,7 @@ public abstract class Mision {
     /**
      * @post si preparada, consume exactamente COSTO_COMBUSTIBLE de combustible y COSTO_DESGASTE de desgaste e informa por consola que la misión fue completada; si no, no consume nada e informa que fue fallida.
      */
-    public void ejecutar() {
+    protected void ejecutar() {
         if (preparada) {
             ac.usarCombustible(getCostoCombustible());
             ac.usarEnergia(getCostoEnergia());
@@ -158,12 +158,12 @@ public abstract class Mision {
     /**
      * @post
      */
-    public abstract void cerrar();
+    protected abstract void cerrar();
 
     /**
      * @post
      */
-    public void evaluar() {
+    protected void evaluar() {
         if (preparada) {
             if (exito)
                 ac.registrarEvento("Misión " + getTipomision() + " Cumplida. ", "Misión");
@@ -171,7 +171,7 @@ public abstract class Mision {
                 ac.registrarEvento("Misión " + getTipomision() + " Fallida. No se otorgan recompensas.", "Misión");
 
             ac.registrarEvento("Cantidad de recursos gastados: " + gastadoCombustible + " combustible, +" + gastadoEnergia + " energia, +" + gastadoDesgaste + " Desgaste.", "Mision");
-        }else
+        } else
              ac.registrarEvento("Misión " + getTipomision() + " Fallida (No hay recursos disponibles)", "Misión");
 
     }
@@ -180,7 +180,7 @@ public abstract class Mision {
      * @pre destino != null (se calcula en preparar()).
      * @post true si la nave está parada exactamente en la posición de destino.
      */
-    private boolean llegoAlDestino() {
+    protected boolean llegoAlDestino() {
         Posicion actual = ac.getTablero().getPosicionNave();
         return actual.getX() == destino.getX() && actual.getY() == destino.getY();
     }
