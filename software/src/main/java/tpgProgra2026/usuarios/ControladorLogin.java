@@ -35,7 +35,7 @@ implements ActionListener {
                 }
             }
         }
-        catch (SQLException exc) {
+        catch (DaoException exc) {
             System.out.println("Fallo en la busqueda o acceso de la DB");
         }
     }

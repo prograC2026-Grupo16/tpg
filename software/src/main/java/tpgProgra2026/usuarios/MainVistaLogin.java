@@ -32,7 +32,7 @@ public class MainVistaLogin
             frame.setLocationRelativeTo(null); // centra la ventana en la pantalla
             frame.setVisible(true);
         }
-        catch(SQLException e){
+        catch(DaoException e){
         }
         });
     }

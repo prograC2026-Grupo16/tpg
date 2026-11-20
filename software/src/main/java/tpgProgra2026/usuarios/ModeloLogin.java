@@ -10,7 +10,7 @@ public class ModeloLogin {
         this.dao = dao;
     }
 
-    public boolean registrar(String nombre, String contra) throws SQLException {
+    public boolean registrar(String nombre, String contra) throws DaoException {
         if (this.dao.existe(nombre)) {
             return false;
         }
@@ -19,7 +19,7 @@ public class ModeloLogin {
         return true;
     }
 
-    public boolean login(String nombre, String contra) throws SQLException {
+    public boolean login(String nombre, String contra) throws DaoException {
         UsuarioDTO dto = this.dao.buscarPorNombre(nombre);
         return dto != null && dto.getPassword().equals(contra);
     }
