@@ -25,4 +25,8 @@ public class Evento {
         return fecha;
     }
 
+    @Override
+    public String toString() {
+    	return "Evento;\nTipo: " + tipo + "\nMensaje: " + mensaje + "\nFecha: " + fecha.toString() + "\n";
+    }
 }

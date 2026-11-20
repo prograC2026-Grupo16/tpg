@@ -16,6 +16,7 @@ public abstract class Tripulante {
         this.antiguedad =   antiguedad;
         this.id         =   ++contador;
     }
+    protected Tripulante() {}
     // @post retorna un valor > 0 
     public int getId() {
         return id;
@@ -27,6 +28,7 @@ public abstract class Tripulante {
     // @post retorna un String no nulo 
     public abstract String getCargo();
     // @post retorna un valor >= 0
+    public String getOrigen() {return "";}
     public abstract double getSueldo();
     //@post retorna un String no nulo@post retorna un String no nulo
      public abstract String descripcion();

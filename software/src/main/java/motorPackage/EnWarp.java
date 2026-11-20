@@ -20,7 +20,9 @@ public class EnWarp implements EstadoWarp{
 			motor.realizarSaltoLargo();
 			return true; // el único caso que saltarWarp devuelve true;
 		}
-		else
+		else {
+			motor.setEstado(new Enfriamiento(motor));
 			return false;
+		}
 	}
 }

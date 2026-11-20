@@ -22,11 +22,9 @@ public class GeneradoraDeEnergia extends Thread {
     @Override
     public void run() {
         try {
-            while (true) {
-                Thread.sleep(500 + random.nextInt(1000));
-                System.out.println("Batería producida por " + nombre + ".");
-                plataforma.depositar(nombre);
-            }
+            Thread.sleep(500 + random.nextInt(1000));
+            System.out.println("Batería producida por " + nombre + ".");
+            plataforma.depositar(nombre);
         } catch (InterruptedException e) {
             System.out.println(nombre + " detenida.");
         }

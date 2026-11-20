@@ -69,7 +69,7 @@ public class Recursos {
      */
     public void quitarDesgaste(int cantidad) {
         if (desgaste - cantidad < MINIMO_DESGASTE)
-        	desgaste = MINIMO_ENERGIA;
+        	desgaste = MINIMO_DESGASTE;
         else
             desgaste -= cantidad;
     }
@@ -95,7 +95,7 @@ public class Recursos {
      */
     public void usarEnergia(int cantidad) {
         if (energia - cantidad < MINIMO_ENERGIA)
-        	energia = MINIMO_COMBUSTIBLE;
+        	energia = MINIMO_ENERGIA;
         else
             energia -= cantidad;
     }

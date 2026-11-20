@@ -22,11 +22,9 @@ public class NaveConsumidora extends Thread {
     @Override
     public void run() {
         try {
-            while (true) {
-                System.out.println(nombre + " solicitando batería.");
-                plataforma.retirar(nombre);
-                Thread.sleep(500 + random.nextInt(1000)); // consume la batería
-            }
+            System.out.println(nombre + " solicitando batería.");
+            plataforma.retirar(nombre);
+            Thread.sleep(500 + random.nextInt(1000)); // consume la batería
         } catch (InterruptedException e) {
             System.out.println(nombre + " detenida.");
         }

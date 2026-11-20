@@ -1,7 +1,6 @@
 package misionesPackage;
 
 import tpgProgra2026.Asistente;
-import tpgProgra2026.Recursos;
 import tpgProgra2026.TableroDestino.Posicion;
 
 /**

@@ -53,7 +53,7 @@ public class MotorWarp {
 	 * - Devuelve una nave no null nave != null
 	 * @return la nave que compone al motor warp
 	 */
-	public Nave getNave() {
+	protected Nave getNave() {
 		return nave;
 	}
 
@@ -67,7 +67,7 @@ public class MotorWarp {
 	}
 	
 	protected boolean realizarSaltoCorto() {
-		if (nave.getCombustible() >= COSTO_ENERGIA_SALTO_LARGO) {
+		if (nave.getCombustible() >= COSTO_COMB_SALTO_CORTO) {
 			nave.usarCombustible(COSTO_COMB_SALTO_CORTO);
 			return true;
 		}

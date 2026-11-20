@@ -8,7 +8,7 @@ public abstract class Decorator extends Tripulante {
     protected Tripulante tripulante;
     
     public Decorator( Tripulante tripulante ){
-        super( tripulante.getAntiguedad() );
+        super();
         this.tripulante = tripulante;
     }
     @Override
