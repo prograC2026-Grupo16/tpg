@@ -1,6 +1,6 @@
 package motorPackage;
 
 public interface EstadoWarp {
-	public void saltar();
-	public void saltarWarp();
+	public boolean saltar();
+	public boolean saltarWarp();
 }

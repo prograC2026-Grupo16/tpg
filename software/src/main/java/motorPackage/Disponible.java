@@ -8,14 +8,14 @@ public class Disponible implements EstadoWarp {
 	}
 	
 	@Override
-	public void saltar() {
-		motor.realizarSaltoCorto();
-		motor.setEstado(new PreparandoSalto(motor));	
+	public boolean saltar() {
+		motor.setEstado(new PreparandoSalto(motor));
+		return motor.realizarSaltoCorto();
 	}
 	
 	@Override
-	public void saltarWarp() {
-		motor.realizarSaltoCorto();
-		motor.setEstado(new PreparandoSalto(motor));		
+	public boolean saltarWarp() {
+		motor.setEstado(new PreparandoSalto(motor));
+		return false;
 	}
 }
