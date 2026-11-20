@@ -52,7 +52,7 @@ public abstract class Mision {
         if (hayObstaculo && ruta.size() >= 2)
             if (ac.getMotorWarp().saltarWarp()) {
                 // SALTO WARP (avanza 2 casilleros y esquiva el obstáculo) (Consultar Mauro).
-    	        gastadoCombustible += MotorWarp.COSTO_ENERGIA_SALTO_LARGO;
+    	        gastadoEnergia += MotorWarp.COSTO_ENERGIA_SALTO_LARGO;
     	        gastadoDesgaste += MotorWarp.DESGASTE_ENFRIAMIENTO;
             	ac.getTablero().moverNave(ruta.get(1));
                 ac.registrarEvento("Obstáculo detectado: Salto Warp", "Movimiento");
@@ -105,8 +105,8 @@ public abstract class Mision {
      */
     public void ejecutar() {
         if (preparada) {
-            ac.usarCombustible(getCostoEnergia());
-            ac.usarEnergia(getCostoCombustible());
+            ac.usarCombustible(getCostoCombustible());
+            ac.usarEnergia(getCostoEnergia());
             ac.generarDesgaste(getCostoDesgaste());
             gastadoCombustible = getCostoCombustible();
             gastadoEnergia = getCostoEnergia();
