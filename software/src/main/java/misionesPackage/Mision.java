@@ -3,6 +3,7 @@ package misionesPackage;
 import tpgProgra2026.Asistente;
 import tpgProgra2026.TableroDestino.ElementoDelUniverso;
 import tpgProgra2026.TableroDestino.Posicion;
+import motorPackage.MotorWarp;
 
 import java.util.ArrayList;
 
@@ -48,19 +49,27 @@ public abstract class Mision {
         boolean hayObstaculo = alrededores[1 + dx][1 + dy] != null;
 
         //Logica Warp preguntamos en clase
-        if (hayObstaculo && ruta.size() >= 2) {
-            // SALTO WARP (avanza 2 casilleros y esquiva el obstáculo) (Consultar Mauro).
-            ac.getTablero().moverNave(ruta.get(1));
-            ac.registrarEvento("Obstáculo detectado: salto warp", "Movimiento");
-            return 2;
-        }
-
+        if (hayObstaculo && ruta.size() >= 2)
+            if (ac.getMotorWarp().saltarWarp()) {
+                // SALTO WARP (avanza 2 casilleros y esquiva el obstáculo) (Consultar Mauro).
+    	        gastadoCombustible += MotorWarp.COSTO_ENERGIA_SALTO_LARGO;
+    	        gastadoDesgaste += MotorWarp.DESGASTE_ENFRIAMIENTO;
+            	ac.getTablero().moverNave(ruta.get(1));
+                ac.registrarEvento("Obstáculo detectado: Salto Warp", "Movimiento");
+                return 2;
+            }
+        
         // SALTO NORMAL (avanza 1 casillero)
-        ac.usarCombustible(2); // cada salto simple consume 2 de combustible
-        gastadoCombustible += 2;
-        ac.getTablero().moverNave(siguiente);
-        ac.registrarEvento("Salto normal a", "Movimiento");
-        return 1;
+        if (this.ac.getMotorWarp().saltar()) {
+	        gastadoCombustible += MotorWarp.COSTO_COMB_SALTO_CORTO; // registra lo que se gastó
+	        ac.getTablero().moverNave(siguiente); // EL MOVIMIENTO REAL
+	        ac.registrarEvento("Salto normal", "Movimiento"); // para la bitacora
+	        return 1; //
+        }
+        else { // NO HAY PLATA
+        	ac.destruirNave();
+        	return 0;
+        }
     }
 
     /**
@@ -123,6 +132,10 @@ public abstract class Mision {
                 // Escaneo (radar de corto alcance) y planificación
                 ElementoDelUniverso[][] alrededores = ac.getTablero().observarAlrededores();
                 int casilleros = planificarMovimiento(alrededores, ruta); // Podemos hacer que el metodo sea de asistente, después vemos
+                
+                if (casilleros == 0) break; // no hay combutible para salto corto
+                // entonces sale del while.
+
                 for (int i = 0; i < casilleros; i++) {
                     ruta.remove(0); // ya recorrí esos pasos de la ruta
                 }

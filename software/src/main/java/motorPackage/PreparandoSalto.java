@@ -8,16 +8,15 @@ public class PreparandoSalto implements EstadoWarp {
 	}
 	
 	@Override
-	public void saltar() {
-		motor.realizarSaltoCorto();
-		if (motor.getNave().getEnergia() >= MotorWarp.COSTO_SALTO_LARGO)
+	public boolean saltar() {
+		if (motor.getNave().getEnergia() >= MotorWarp.COSTO_ENERGIA_SALTO_LARGO)
 			motor.setEstado(new EnWarp(motor));	
-	}
+		return motor.realizarSaltoCorto();	}
 	
 	@Override
-	public void saltarWarp() {
-		motor.realizarSaltoCorto();
-		if (motor.getNave().getEnergia() >= MotorWarp.COSTO_SALTO_LARGO)
+	public boolean saltarWarp() {
+		if (motor.getNave().getEnergia() >= MotorWarp.COSTO_ENERGIA_SALTO_LARGO)
 			motor.setEstado(new EnWarp(motor));	
+		return false;
 	}
 }

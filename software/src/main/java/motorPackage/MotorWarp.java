@@ -4,7 +4,8 @@ import navesPackage.Nave;
 public class MotorWarp {
 	private EstadoWarp estado;
 	private Nave nave;
-	public static final int COSTO_SALTO_CORTO = 2, COSTO_SALTO_LARGO = 5; // COSTO_SALTO_CORTO es de combustible, COSTO_SALTO_LARGO es de energía
+	public static final int COSTO_COMB_SALTO_CORTO = 2, COSTO_ENERGIA_SALTO_LARGO = 5;
+	public static final int DESGASTE_ENFRIAMIENTO = 3;
 	
 	/**
 	 * Invariantes:
@@ -57,27 +58,29 @@ public class MotorWarp {
 	}
 
 	// transiciones 
-	public void saltar() {
-		estado.saltar();
+	public boolean saltar() {
+		return estado.saltar();
 	}
-	public void saltarWarp() {
-		estado.saltarWarp();			
+
+	public boolean saltarWarp() {
+		return estado.saltarWarp();			
 	}
 	
-	protected void realizarSaltoCorto() {
-		if (nave.getCombustible() >= COSTO_SALTO_CORTO) {
-			nave.usarCombustible(COSTO_SALTO_CORTO);
-			// TODO: Hacer el salto corto
+	protected boolean realizarSaltoCorto() {
+		if (nave.getCombustible() >= COSTO_ENERGIA_SALTO_LARGO) {
+			nave.usarCombustible(COSTO_COMB_SALTO_CORTO);
+			return true;
 		}
+		else return false;
 	}
 
 	/**
 	 * @pre nave.getEnergia() >= COSTO_SALTO_LARGO
 	 */
 	protected void realizarSaltoLargo() {
-		assert nave.getEnergia() >= COSTO_SALTO_LARGO : "Se intentó hacer un salto warp sin los recursos necesarios";
-		nave.usarEnergia(COSTO_SALTO_LARGO);
-		// TODO: hacer el salto warp
+		assert nave.getEnergia() >= COSTO_ENERGIA_SALTO_LARGO : "Se intentó hacer un salto warp sin los recursos necesarios";
+		nave.usarEnergia(COSTO_ENERGIA_SALTO_LARGO);
 	}
+	
 	
 }

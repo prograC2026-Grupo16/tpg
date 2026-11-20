@@ -158,10 +158,11 @@ public class Asistente {
     }
     
     
-    // SACARLO ??
     public MotorWarp getMotorWarp() {
         return nave.getMotorWarp();
     }
+    
+    
     
     /* yo esto lo sacaría ~ Mauro
     /**
@@ -210,8 +211,8 @@ public class Asistente {
         elementos.add(new EstacionesDeCarga());
         //elementos.add(new naveEnemiga()); // Todavia no implemento
 
-        Tablero tablero = new Tablero(20, 20, elementos);   // filas, columnas, lista
-        Destino destino = new Destino(tablero);
+        tablero = new Tablero(20, 20, elementos);   // filas, columnas, lista
+        destino = new Destino(tablero);
     }
 
     public Posicion getBase(){
