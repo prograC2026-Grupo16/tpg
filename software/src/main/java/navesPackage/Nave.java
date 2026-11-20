@@ -16,6 +16,7 @@ public abstract class Nave {
     protected MotorWarp motorWarp;
     protected ArrayList<Tripulante> tripulacion;
     protected boolean destruida = false;
+    public static final int LIMITE_DESGASTE = 100;
 
     /**
      * @pre  id != null && nombre != null && tipo != null && motorwarp != null
@@ -59,6 +60,13 @@ public abstract class Nave {
     }
 
     // RECURSOS
+    
+    public boolean alcanzaPara(int combustible, int energia, int desgaste) {
+        return getCombustible() >= combustible
+            && getEnergia() >= energia
+            && (getDesgaste() + desgaste) < LIMITE_DESGASTE;
+    }
+    
 
     public int getCombustible() {
         return recursos.getCombustible();

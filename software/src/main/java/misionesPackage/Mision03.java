@@ -24,7 +24,7 @@ public class Mision03 extends Mision {
     }
 
     @Override
-    public void cerrar() {
+    protected void cerrar() {
         if (exito) {
             int faltaCombustible = Math.max(0, MAXIMO - ac.getCombustible());
             int faltaEnergia = Math.max(0, MAXIMO - ac.getEnergia());

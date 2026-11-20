@@ -9,7 +9,6 @@ import tpgProgra2026.TableroDestino.*;
  * @invariante nave != null && misiones != null && bitacora != null
  */
 public class Asistente {
-    private static final int LIMITE_DESGASTE = 100;
 
     protected Nave nave;
     protected ArrayList<Evento> bitacora = new ArrayList<>();
@@ -46,12 +45,6 @@ public class Asistente {
     
     // RECURSOS
 
-    
-    public boolean requiereMantenimiento() {
-        return nave.getDesgaste() >= LIMITE_DESGASTE;
-    }
-
-    // SACARLO ??
     /**
      * @post !requiereMantenimiento() && getRecursos().getDesgaste() == 0
      */
@@ -188,9 +181,7 @@ public class Asistente {
      */
 
     public boolean alcanzaPara(int combustible, int energia, int desgaste) {
-        return nave.getCombustible() >= combustible
-            && nave.getEnergia() >= energia
-            && (nave.getDesgaste() + desgaste) <= LIMITE_DESGASTE;
+        return nave.alcanzaPara(combustible,energia,desgaste);
     }
 
     public ArrayList<Posicion> calcularRuta(Posicion destino) {

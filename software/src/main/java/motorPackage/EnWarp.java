@@ -1,5 +1,7 @@
 package motorPackage;
 
+import navesPackage.Nave;
+
 public class EnWarp implements EstadoWarp{
 	private MotorWarp motor;
 	
@@ -14,14 +16,13 @@ public class EnWarp implements EstadoWarp{
 	
 	@Override
 	public boolean saltarWarp() {
-		if (motor.getNave().getEnergia() >= MotorWarp.COSTO_ENERGIA_SALTO_LARGO) {
+		if (motor.getNave().getEnergia() >= MotorWarp.COSTO_ENERGIA_SALTO_LARGO && motor.getNave().getDesgaste() + MotorWarp.DESGASTE_ENFRIAMIENTO < Nave.LIMITE_DESGASTE) {
 			motor.getNave().generarDesgaste(MotorWarp.DESGASTE_ENFRIAMIENTO);
 			motor.setEstado(new Enfriamiento(motor));
 			motor.realizarSaltoLargo();
 			return true; // el único caso que saltarWarp devuelve true;
 		}
 		else {
-			motor.setEstado(new Enfriamiento(motor));
 			return false;
 		}
 	}
