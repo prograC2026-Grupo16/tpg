@@ -33,6 +33,14 @@ implements ActionListener {
                     //Limpia los campos 
                     break;
                 }
+                case "REGISTRAR":{
+                    if (this.modelo.registrar(this.vista.getNombre(), this.vista.getContra())) {
+                        System.out.println("Usuario registrado");
+                    } else {
+                        System.out.println("El usuario ya existe");
+                    }
+                    break;
+                }
             }
         }
         catch (DaoException exc) {
