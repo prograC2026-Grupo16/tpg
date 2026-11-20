@@ -20,7 +20,7 @@ public class MainVistaLogin
             modelo.registrar("matias", "12");
             // Listener de prueba: reemplaza al controlador
             vista.setActionListener(e -> {
-                System.out.println("Botón: " + e.getActionCommand());
+               
                 System.out.println("Nombre: " + vista.getNombre());
                 System.out.println("Contra: " + vista.getContra());
             });
