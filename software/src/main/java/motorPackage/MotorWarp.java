@@ -39,14 +39,6 @@ public class MotorWarp {
 		assert invariantes() : "El estado de la instancia es null";
 	}
 	
-	/**
-	 * Postcondicion:
-	 * - Devuelve un estado no null estado != null
-	 * @return el estado del motor warp
-	 */
-	public EstadoWarp getEstado() {
-		return estado;
-	}
 	
 	/**
 	 * Postcondicion:

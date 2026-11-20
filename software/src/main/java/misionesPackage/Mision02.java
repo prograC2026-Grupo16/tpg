@@ -24,7 +24,7 @@ public class Mision02 extends Mision{
     }
 
     @Override
-    public void cerrar() {
+    protected void cerrar() {
         if(exito)
             ac.cargarGemas(random.nextInt(81) + 20);
     }

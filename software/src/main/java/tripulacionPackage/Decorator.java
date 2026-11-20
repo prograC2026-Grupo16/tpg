@@ -16,6 +16,11 @@ public abstract class Decorator extends Tripulante {
     public int getId(){
         return tripulante.getId();
     }
+    @Override
+    //@post retorna la antigüedad del tripulante decorado
+    public int getAntiguedad(){
+        return tripulante.getAntiguedad();
+    }
     // @post retorna un valor >= tripulante.getSueldo() 
     public abstract double getSueldo();
     //@post retorna un String no nulo 

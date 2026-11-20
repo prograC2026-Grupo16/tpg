@@ -27,6 +27,7 @@ implements ActionListener {
                         break;
                     }
                     System.out.println("Usuario no encontrado");
+                    break;
                 }
                 case "CANCELAR": {
                     //Limpia los campos 
@@ -34,7 +35,7 @@ implements ActionListener {
                     break;
                 }
                 case "REGISTRAR":{
-                	if (this.vista.getNombre() == "" || this.vista.getContra() == "")
+                	if (this.vista.getNombre().equals("") || this.vista.getContra().equals(""))
                         System.out.println("Escribí imbécil");
                 	else {
                 		if (this.modelo.registrar(this.vista.getNombre(), this.vista.getContra())) {

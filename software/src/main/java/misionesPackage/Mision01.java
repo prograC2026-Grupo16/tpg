@@ -28,7 +28,7 @@ public class Mision01 extends Mision {
     }
 
     @Override
-    public void cerrar() {
+    protected void cerrar() {
         if (exito) {
             ac.usarCombustible(combustibleAEntregar);
             ac.usarEnergia(energiaAEntregar);
