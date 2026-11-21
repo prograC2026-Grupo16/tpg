@@ -6,7 +6,12 @@ package universoParalelo;
 public class PruebaUniverso {
 
     public static void main(String[] args) throws InterruptedException {
-        PlataformaDeCarga plataforma = new PlataformaDeCarga(5);
+        final PlataformaDeCarga plataforma = new PlataformaDeCarga(5);
+        // sin interfaz gráfica: un observador imprime cada evento nuevo en consola
+        plataforma.agregarObservador(() -> {
+            java.util.List<String> eventos = plataforma.getEventos();
+            System.out.println(eventos.get(eventos.size() - 1));
+        });
 
         new GeneradoraDeEnergia("Generadora 1", plataforma).start();
         new NaveConsumidora("Nave 1", plataforma).start();

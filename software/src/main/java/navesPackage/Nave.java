@@ -2,13 +2,14 @@ package navesPackage;
 import java.util.ArrayList;
 import motorPackage.MotorWarp;
 import tpgProgra2026.Recursos;
+import tpgProgra2026.TableroDestino.Observable;
 import tripulacionPackage.Tripulante;
 
 /**
  * @invariante id != null && nombre != null && tipo != null
  * @invariante recursos != null && motorwarp != null && Tripulante != null
  */
-public abstract class Nave {
+public abstract class Nave extends Observable {
     protected String id;
     protected String nombre;
     protected Recursos recursos;
@@ -49,6 +50,23 @@ public abstract class Nave {
      */
     public void asignarTripulante(Tripulante t) {
         tripulacion.add(t);
+        notificarObservadores();
+    }
+
+    /** @post cantidad de tripulantes con cargo Capitan (los decoradores de origen conservan el cargo). */
+    public int cantidadCapitanes() {
+        int cantidad = 0;
+        for (Tripulante t : tripulacion) {
+            if ("Capitan".equals(t.getCargo())) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
+    /** @post true si hay al menos un Capitán asignado. */
+    public boolean tieneCapitan() {
+        return cantidadCapitanes() > 0;
     }
 
     public boolean estaViva() {
@@ -57,6 +75,7 @@ public abstract class Nave {
 
     public void destruir() {
         destruida = true;
+        notificarObservadores();
     }
 
     // RECURSOS
@@ -92,6 +111,7 @@ public abstract class Nave {
      */
     public void cargarCombustible(int cantidad) {
     	recursos.cargarCombustible(cantidad);
+        notificarObservadores();
     }
 
     /**
@@ -101,6 +121,7 @@ public abstract class Nave {
      */
     public void cargarEnergia(int cantidad) {
     	recursos.cargarEnergia(cantidad);
+        notificarObservadores();
     }
 
     /**
@@ -110,10 +131,12 @@ public abstract class Nave {
      */
     public void quitarDesgaste(int cantidad) {
     	recursos.quitarDesgaste(cantidad);
+        notificarObservadores();
     }
 
     public void cargarGemas(int cantidad) {
         gemas += cantidad;
+        notificarObservadores();
     }
     
     // USO DE RECURSOS
@@ -125,6 +148,7 @@ public abstract class Nave {
      */
     public void usarCombustible(int cantidad) {
     	recursos.usarCombustible(cantidad);
+        notificarObservadores();
     }
     
     /**
@@ -134,6 +158,7 @@ public abstract class Nave {
      */
     public void usarEnergia(int cantidad) {
     	recursos.usarEnergia(cantidad);
+        notificarObservadores();
     }
         
     /**
@@ -143,6 +168,7 @@ public abstract class Nave {
      */
     public void generarDesgaste(int cantidad) {
     	recursos.generarDesgaste(cantidad);
+        notificarObservadores();
     }
 
     
@@ -152,6 +178,7 @@ public abstract class Nave {
      */
     public void reiniciarCombustible() {
     	recursos.reiniciarCombustible();
+        notificarObservadores();
     }
     
     /**
@@ -160,6 +187,7 @@ public abstract class Nave {
      */
     public void reiniciarEnergia() {
     	recursos.reiniciarEnergia();
+        notificarObservadores();
     }
     
     /**
@@ -168,6 +196,7 @@ public abstract class Nave {
      */
     public void reiniciarDesgaste() {
     	recursos.reiniciarDesgaste();
+        notificarObservadores();
     }
     
     

@@ -7,7 +7,7 @@ public class NaveEnemigaCarguera extends NaveEnemiga implements ElementoDelUnive
 	@Override
 	public void interactuar(Asistente ac) {		
 		if (ac.esVencidoPorCarguera() == 1)
-			ac.destruirNave();
+			ac.destruirNave("fue derrotada en batalla por una " + getTipoElemento());
 		// por ahora si la nave original no pierde
 		// es decir, si gana o empata
 		// no hace nada

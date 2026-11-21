@@ -2,6 +2,7 @@ package misionesPackage;
 
 import tpgProgra2026.Asistente;
 import tpgProgra2026.TableroDestino.ElementoDelUniverso;
+import tpgProgra2026.TableroDestino.Observable;
 import tpgProgra2026.TableroDestino.Posicion;
 import motorPackage.MotorWarp;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @inv ac no cambia después de construida la misión.
  * @inv preparada es true solo si el último preparar() encontró recursos suficientes y el motor disponible.
  */
-public abstract class Mision {
+public abstract class Mision extends Observable {
 
     protected boolean preparada = false;
     protected boolean exito = false;
@@ -67,7 +68,7 @@ public abstract class Mision {
 	        return 1; //
         }
         else { // NO HAY PLATA
-        	ac.destruirNave();
+        	ac.destruirNave("se quedó sin combustible para seguir saltando");
         	return 0;
         }
     }
@@ -79,9 +80,23 @@ public abstract class Mision {
      */
     public final void Ejecuto_Mision() {
         preparar();
+        notificarObservadores();
         ejecutar();
+        notificarObservadores();
         evaluar();
+        notificarObservadores();
         cerrar();
+        notificarObservadores();
+    }
+
+    /** @post true si la misión llegó a prepararse, la nave llegó viva al destino y pudo cumplir; no modifica la misión. */
+    public boolean fueExitosa() {
+        return preparada && exito;
+    }
+
+    /** @post devuelve el destino de la misión (null si todavía no se preparó); no modifica la misión. */
+    public Posicion getDestino() {
+        return destino;
     }
 
     /**
@@ -117,14 +132,14 @@ public abstract class Mision {
                 // Turno de la nave
                 ElementoDelUniverso elemento = ac.getTablero().inspeccionarPosicion();
                 if (elemento != null) {
-                    Posicion act = ac.getTablero().getPosicionNave();
+//                    Posicion act = ac.getTablero().getPosicionNave();
                     ac.registrarEvento("La nave interactúa con " + elemento.getTipoElemento() + " en la posición actual", "Encuentro");
                     elemento.interactuar(ac);
                 }
 
                 // si la nave es destruida
                 if(!ac.estaVivaNave()) {
-                    ac.registrarEvento("La nave ha sido destruida. ", "Destrucción");
+                    // el aviso con la causa ya lo dejó escrito Asistente.destruirNave(causa)
                     exito = false;
                     break;
                 }
@@ -144,7 +159,7 @@ public abstract class Mision {
                 ac.getDestino().turnoDestino();
 
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(650);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;
@@ -171,8 +186,13 @@ public abstract class Mision {
                 ac.registrarEvento("Misión " + getTipomision() + " Fallida. No se otorgan recompensas.", "Misión");
 
             ac.registrarEvento("Cantidad de recursos gastados: " + gastadoCombustible + " combustible, +" + gastadoEnergia + " energia, +" + gastadoDesgaste + " Desgaste.", "Mision");
-        } else
-             ac.registrarEvento("Misión " + getTipomision() + " Fallida (No hay recursos disponibles)", "Misión");
+        } else {
+            ac.registrarEvento("Misión " + getTipomision() + " Fallida (No hay recursos disponibles)", "Misión");
+            // Si ni siquiera le alcanza para M-03 (volver a la base) no puede hacer ninguna misión: queda varada y se pierde
+            if (ac.estaVarada()) {
+                ac.destruirNave("quedó varada en el espacio: no le alcanzan los recursos para ninguna misión, ni siquiera para volver a la base");
+            }
+        }
 
     }
 

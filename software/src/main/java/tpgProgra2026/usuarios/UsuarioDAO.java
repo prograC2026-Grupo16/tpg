@@ -1,7 +1,7 @@
 
 package tpgProgra2026.usuarios;
 
-import java.sql.SQLException;
+// import java.sql.SQLException;
 
 public interface UsuarioDAO {
     public void guardar(UsuarioDTO var1) throws DaoException;

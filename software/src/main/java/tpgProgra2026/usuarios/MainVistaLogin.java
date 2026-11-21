@@ -2,7 +2,7 @@
 package tpgProgra2026.usuarios;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import java.sql.SQLException;
+// import java.sql.SQLException;
 
 public class MainVistaLogin
 {
@@ -13,7 +13,7 @@ public class MainVistaLogin
             VistaLogin vista = new VistaLogin();
             UsuarioDAO dao = new UsuarioDaoSQLite();  // -> aca se crea la base de datos
             ModeloLogin modelo = new ModeloLogin(dao); 
-            ControladorLogin controlador = new ControladorLogin(vista, modelo);
+            ControladorLogin controlador = new ControladorLogin(vista, modelo, usuario -> vista.mostrarExito("Ingresó: " + usuario));
             vista.setActionListener(controlador);
             modelo.registrar("Ana", "1234");
             modelo.registrar("pablo", "123");

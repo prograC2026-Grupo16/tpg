@@ -2,13 +2,14 @@ package tpgProgra2026;
 import java.util.ArrayList;
 import navesPackage.Nave;
 import misionesPackage.Mision;
+import misionesPackage.Mision03;
 import motorPackage.MotorWarp;
 import tpgProgra2026.TableroDestino.*;
 
 /**
  * @invariante nave != null && misiones != null && bitacora != null
  */
-public class Asistente {
+public class Asistente extends Observable {
 
     protected Nave nave;
     protected ArrayList<Evento> bitacora = new ArrayList<>();
@@ -37,6 +38,7 @@ public class Asistente {
      */
     public void registrarEvento(String mensaje, String tipo) {
         bitacora.add(new Evento(mensaje, tipo));
+        notificarObservadores();
     }
 
     public ArrayList<Evento> getBitacora(){
@@ -180,6 +182,15 @@ public class Asistente {
      * @post no modifica el estado de la nave
      */
 
+    /**
+     * @post true si la nave no podría empezar ni siquiera la misión más barata, que es M-03 (volver a la base).
+     *       Quiere decir que no puede hacer ninguna misión y quedaría varada en el espacio. No modifica la nave.
+     */
+    public boolean estaVarada() {
+        Mision03 retorno = new Mision03(this);
+        return !alcanzaPara(retorno.getCostoCombustible(), retorno.getCostoEnergia(), retorno.getCostoDesgaste());
+    }
+
     public boolean alcanzaPara(int combustible, int energia, int desgaste) {
         return nave.alcanzaPara(combustible,energia,desgaste);
     }
@@ -197,14 +208,39 @@ public class Asistente {
         return ruta;
     }
 
+    /** Proporción de casillas que se llenan con elementos del universo (20%). */
+    private static final double PORCENTAJE_OCUPACION = 0.20; // desde acá se cambia la proporción de elementosDelUniverso
+
+    /**
+     * Arma el tablero y su destino. Cantidad de elementos = 20% de las casillas (10x15 = 150 casillas -> 60 elementos),
+     * cada uno elegido al azar entre Asteroide, Estación de carga y Nave enemiga; las naves enemigas son a su vez
+     * Exploradora, Carguera o de Combate al azar. Como 20% < 75% (límite del Tablero), cualquier tamaño válido
+     * entra sin lanzar CantidadDeElementosSuperaCasillaException.
+     */
     public void setTableroyDestino(int dimension_x, int dimension_y) throws CantidadDeElementosSuperaCasillaException, DimensionesDeTableroInconsistentesException {
         ArrayList<ElementoDelUniverso> elementos = new ArrayList<>();
-        elementos.add(new Asteroide());            // uno por cada cosa que quieras en el mapa
-        elementos.add(new EstacionesDeCarga());
-        //elementos.add(new naveEnemiga()); // Todavia no implemento
+        if (dimension_x >= 5 && dimension_y >= 5 && dimension_x <= 100 && dimension_y <= 100) {   // fuera de rango: el Tablero lanza su excepción
+            int cantidad = (int) Math.round(dimension_x * dimension_y * PORCENTAJE_OCUPACION);
+            java.util.Random azar = new java.util.Random();
+            for (int i = 0; i < cantidad; i++) {
+                switch (azar.nextInt(3)) {
+                    case 0:  elementos.add(new Asteroide()); break;
+                    case 1:  elementos.add(new EstacionesDeCarga()); break;
+                    default: elementos.add(nuevaNaveEnemiga(azar)); break;
+                }
+            }
+        }
 
-        tablero = new Tablero(20, 20, elementos);   // filas, columnas, lista
+        tablero = new Tablero(dimension_x, dimension_y, elementos);   // filas, columnas, lista
         destino = new Destino(tablero);
+    }
+
+    private ElementoDelUniverso nuevaNaveEnemiga(java.util.Random azar) {
+        switch (azar.nextInt(3)) {
+            case 0:  return new NaveEnemigaExploradora();
+            case 1:  return new NaveEnemigaCarguera();
+            default: return new NaveEnemigaCombate();
+        }
     }
 
     public Posicion getBase(){
@@ -236,6 +272,18 @@ public class Asistente {
     }
 
     public void destruirNave(){
+        destruirNave("causa no especificada");
+    }
+
+    /**
+     * Destruye la nave y lo deja escrito en la bitácora, con la causa. Si ya estaba destruida no hace nada,
+     * así el aviso aparece una sola vez.
+     */
+    public void destruirNave(String causa){
+        if (!nave.estaViva()) {
+            return;
+        }
+        registrarEvento("¡La nave ha sido destruida! Causa: " + causa + ".", "Destrucción");
         nave.destruir();
     }
 

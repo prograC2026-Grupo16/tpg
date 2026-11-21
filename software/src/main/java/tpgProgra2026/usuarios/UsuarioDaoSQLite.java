@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 public class UsuarioDaoSQLite implements UsuarioDAO{
-    private static final String URL = "jdbc:sqlite:usuarios.db";
+    private static final String URL = "jdbc:sqlite:" + RutaBaseDatos.obtener(); // misma base desde cualquier IDE
 
     public UsuarioDaoSQLite() throws DaoException {
         this.crearTablaSiNoExiste();
@@ -25,7 +25,7 @@ public class UsuarioDaoSQLite implements UsuarioDAO{
             st.execute(sql);
         }
         catch( SQLException e ){
-            throw new DaoException("No se pudo crear la tabla usuarios");
+            throw new DaoException("No se pudo crear la tabla usuarios: " + e.getMessage());
         }
     }
     @Override

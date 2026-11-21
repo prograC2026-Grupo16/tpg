@@ -7,7 +7,7 @@ public class NaveEnemigaExploradora extends NaveEnemiga implements ElementoDelUn
 	@Override
 	public void interactuar(Asistente ac) {		
 		if (ac.esVencidoPorExploradora() == 1)
-			ac.destruirNave();
+			ac.destruirNave("fue derrotada en batalla por una " + getTipoElemento());
 		// por ahora si la nave original no pierde
 		// es decir, si gana o empata
 		// no hace nada

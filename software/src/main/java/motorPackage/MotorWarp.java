@@ -1,7 +1,8 @@
 package motorPackage;
 import navesPackage.Nave;
+import tpgProgra2026.TableroDestino.Observable;
 
-public class MotorWarp {
+public class MotorWarp extends Observable {
 	private EstadoWarp estado;
 	private Nave nave;
 	public static final int COSTO_COMB_SALTO_CORTO = 2, COSTO_ENERGIA_SALTO_LARGO = 5;
@@ -37,6 +38,12 @@ public class MotorWarp {
 		assert estado != null : "El estado pasado como parámetro es null";
 		this.estado = estado;
 		assert invariantes() : "El estado de la instancia es null";
+		notificarObservadores();
+	}
+
+	/** @post devuelve el nombre del estado actual (Disponible, PreparandoSalto, EnWarp o Enfriamiento); no modifica el motor. */
+	public String getNombreEstado() {
+		return estado.getClass().getSimpleName();
 	}
 	
 	
